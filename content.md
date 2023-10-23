@@ -48,6 +48,19 @@ Relational databases, the kind of database that powers most apps, use a special 
 
 In particular, we're going to use a very powerful and popular open-source database known as PostgreSQL (or "Postgres", for short). We're first going to see how to work with Postgres directly, but we'll soon move on to working with Postgres through Ruby. That will enable us to integrate permanent storage into our Rails apps – finally! Let's get started.
 
+- Select all that are true:
+- Structured Query Language (SQL) is only used for Ruby apps.
+  - Not quite, re-read the previous section.
+- SQL is the language of databases.
+  - Yes!
+- Databases are part of a Rails app and can't be used by other types of apps.
+  - Not quite, re-read the previous section.
+- Databases are a piece of software separate from our app.
+  - Yes!
+- Our apps provide an interface to interact with a database.
+  - Yes!
+{: .choose_all #databases_and_sql title="Databases and SQL" points="2" answer="[2,4,5]" }
+
 ## Working directly with Postgres
 
 Don't worry about memorizing any of the raw Postgres and SQL commands that you'll see in this section. I just want you to have a sense of how the underlying database works before we graduate to using a wonderful Ruby gem called ActiveRecord that makes it all much easier.
