@@ -1,10 +1,5 @@
 # Contact Book: Our very first database
 
-<div class="bg-blue-100 py-1 px-5" markdown="1">
-
-The GitHub repository associated with this lesson is just for you to experiment with a database. There are also quiz questions throughout this lesson. You will need to answer those questions to check your understanding and get a grade.
-</div>
-
 In this project, we'll interact with a real database for the first time.
 
 Our goal is to build an application that allows us to store contact information for people we know. The data we want to store will look something like this:
