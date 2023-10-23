@@ -26,6 +26,11 @@ Importantly, we'll learn how to do this directly within the database and also _i
 
 ## Setup
 
+<div class="bg-blue-100 py-1 px-5" markdown="1">
+
+The GitHub repository associated with this lesson is just for you to experiment with a database. There are also quiz questions throughout this lesson. You will need to answer those questions to check your understanding and get a grade.
+</div>
+
 [Fork this repository](https://github.com/appdev-projects/contact-book/fork) and create a codespace. There are no automated tests in this project.
 
 The starting point is a blank Rails app; there's nothing else in it to begin with.
