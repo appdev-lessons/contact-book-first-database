@@ -389,7 +389,7 @@ You can also use the SQL Editor to issue raw SQL commands, or Export the data as
 
 We'll use the Rails DB GUI often to get a quick visual view into our database tables. But, what we really need to do is learn how to CRUD data into our tables using Ruby. Then and only then will we be able to write code to CRUD data from within our actions, which is our end goal!
 
-- Did you check out the `rails/db` page?
+- Did you check out the `/rails/db` page in your live app preview?
 - Yes, it's really useful.
   - Good! Thanks, Ruby community for this awesome gem!
 - No, I'm just reading.
