@@ -59,7 +59,7 @@ In particular, we're going to use a very powerful and popular open-source databa
   - Yes!
 - Our apps provide an interface to interact with a database.
   - Yes!
-{: .choose_all #databases_and_sql title="Databases and SQL" points="2" answer="[2,4,5]" }
+{: .choose_all #databases_and_sql title="Databases and SQL" points="3" answer="[2,4,5]" }
 
 ## Working directly with Postgres
 
@@ -279,6 +279,21 @@ If you copy-paste the above into `psql` and then `SELECT * FROM contacts;` again
 **Remember to press <kbd>Q</kbd> to get back to your prompt if the output of a command is too long for the terminal window.**
 
 Notice that values for `id` and `created_at` were automatically assigned. You could shut down your codespace, come back tomorrow, and this data would still be there. Finally, persistent storage!
+
+- Select all that are true:
+- A "relation" is a single record from the database.
+  - Not quite, re-read the previous section.
+- A "relation" is a set of records from the database.
+  - Yes!
+- We usually think of a "relation" as a "table" in our database.
+  - Yes!
+- Postgres is a language.
+  - Not quite.
+- Postgres is a database software that we interact with using the SQL language.
+  - Yes!
+- Persistent storage allows us to permanently store database records.
+  - Yes!
+{: .choose_all #relations_and_postgres title="Relations and Postgres" points="4" answer="[2,3,5,6]" }
 
 ## Interacting with Postgres from within a Rails app
 
