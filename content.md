@@ -310,6 +310,10 @@ Now let's see how we can get our Rails app talking to Postgres, so that we can u
 
 All Rails apps come out-of-the-box with a file called `config/database.yml`. `.yml` is the extension for a markup language called "Yet Another Markup Language". It's supposed to be easy to type, sort of like Markdown; but highly structured, sort of like JSON. `.yml` files are often used for configuration and settings.
 
+<aside markdown="1">
+When we deploy our apps with Render, we use a file named `render.yaml` for configuration. The extension `.yml` and `.yaml` are equivalent file endings: both indicate the file is of "Yet Another Markup Language" (YAML) type.
+</aside>
+
 Among other things, `config/database.yml` is how we tell Rails which database we want it to connect to. Currently, on Line 26, the database is set to `rails_template_development` — this is a default name that was automatically generated when I first created this blank Rails app for us.
 
 Let's ask Rails to connect to the database that we created instead. Edit Line 26 of `config/database.yml` to be:
