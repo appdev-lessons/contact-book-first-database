@@ -496,7 +496,7 @@ From now on, when we want a quick way of executing one line of Ruby at a time, w
 
 As of now, the `Contact` class isn't very interesting. But let's give it superpowers by inheriting from a class called `ActiveRecord::Base`:
 
-```ruby
+```ruby{3:(15-34)}
 # app/models/contact.rb
 
 class Contact < ActiveRecord::Base
@@ -504,6 +504,13 @@ end
 ```
 
 Voilà! The `Contact` class has now inherited _hundreds_ of methods that will help us CRUD data in the `contacts` table.
+
+- In Ruby, when we use the `<` operator between two classes it means:
+- The class on the right is greater than the class on the left.
+  - Not quite. This operator means "inherit" in the case of classes.
+- Pass all of the methods from the class on the right into the class on the left.
+  - Yes!
+{: .choose_best #inheritance title="Inheritance" points="1" answer="2" }
 
 #### Reloading `rails console`
 
