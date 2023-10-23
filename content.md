@@ -318,13 +318,13 @@ Among other things, `config/database.yml` is how we tell Rails which database we
 
 Let's ask Rails to connect to the database that we created instead. Edit Line 27 of `config/database.yml` to be:
 
-```yml{6:(13-24)}
+```yml{6:(13-27)}
 # ...
 
 development:
   adapter: sqlite3
   <<: *default
-  database: contact_book
+  database: my_contact_book
 
 # ...
 ```
@@ -560,7 +560,7 @@ end
 ```
 
 If you `exit`, launch a fresh `rails c` to pick up the new file,
-and then try `Zebra.count` , you'll see an error:
+and then try `Zebra.count`, you'll see an error:
 
 ```
 contact-book main % rails c
@@ -593,7 +593,7 @@ We now have two models, `Contact` and `Zebra`, which both interact with the same
 
 This is an example of Rails' philosophy of "convention over configuration". If you follow conventional patterns (like naming your model the same thing as your table), then Rails will by default _just work_ without us having to specify every little thing. But if you want to break from convention, Rails always gives you a way to do that too.
 
----
+<div class="bg-blue-100 py-1 px-5" markdown="1">
 
 **Checkpoint:**
 
@@ -607,7 +607,7 @@ In `psql`, I created a database with the command:
 CREATE DATABASE my_contact_book;
 ```
 
-Then, I conncected to that database with the command:
+Then, I connected to that database with the command:
 
 ```
 \connect my_contact_book
@@ -632,13 +632,13 @@ CREATE TABLE contacts (
 );
 ```
 
-Then, we configured our Rails application to use this database by editing Line 26 of `config/database.yml` to:
+Then, we configured our Rails application to use this database by editing Line 27 of `config/database.yml` to:
 
 ```yml
 database: my_contact_book
 ```
 
-Then, we created a model called `Contact:
+Then, we created a model called `Contact`:
 
 ```ruby
 # app/models/contact.rb
@@ -653,6 +653,8 @@ And that's it!
 
 - [Here you can see the changes that I've made so far.](https://github.com/raghubetina/contact-book/commit/5f1cd87babdbde964d822c4007eff8355b6de1e2)
 - [Here you can browse my entire codebase at this point in time.](https://github.com/raghubetina/contact-book/tree/5f1cd87babdbde964d822c4007eff8355b6de1e2)
+
+</div>
 
 ### Creating a new record
 
