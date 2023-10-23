@@ -359,11 +359,11 @@ my_contact_book=# \dt
 And we can see the table and data that we previously created. **So: we update the `config/database.yml` file to connect Rails to a specific database.**
 
 - The `config/database.yml` file in a Rails app
-- Formatting content so that a user's browser can display it in an accessible, pleasing way.
+- Allows us to connect to any Postgres database.
   - Yes!
-- Generating dynamic, unique responses to each HTTP request.
-  - Not quite. That's why we need to learn Ruby!
-{: .choose_best #html_is title="HTML is for?" points="1" answer="1" }
+- Should never be edited.
+  - Not quite. You should have edited it in the previous step
+{: .choose_best #config_database title="config/database.yml" points="1" answer="1" }
 
 ### The /rails/db GUI
 
