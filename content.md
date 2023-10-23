@@ -404,7 +404,7 @@ Fortunately for us, there's a wonderful Ruby gem called ActiveRecord (written by
 
 For each table that we want to interact with, we will create a Ruby class to act as a translator to that table. This Ruby class will generate SQL, send it to the database, and transform the data sent back into Ruby objects that are easy for us to work with. We refer to these classes  as "models", and we place them in the `app/models` folder.
 
-Let's create a class called `Contact` to deal with the `contacts` table for us:
+Let's create a class called `Contact` to deal with the `contacts` table for us.
 
 At this point, you should stop copy-pasting and instead start typing out the examples again. We very much want to build muscle memory around using ActiveRecord.
 {: .bg-red-100.py-1.px-5 }
