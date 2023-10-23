@@ -389,6 +389,13 @@ You can also use the SQL Editor to issue raw SQL commands, or Export the data as
 
 We'll use the Rails DB GUI often to get a quick visual view into our database tables. But, what we really need to do is learn how to CRUD data into our tables using Ruby. Then and only then will we be able to write code to CRUD data from within our actions, which is our end goal!
 
+- Did you check out the `rails/db` page?
+- Yes, it's really useful.
+  - Good! Thanks, Ruby community for this awesome gem!
+- No, I'm just reading.
+  - Do or do not, there is no read!
+{: .choose_best #rails_db title="rails/db" points="1" answer="1" }
+
 ## ActiveRecord
 
 Fortunately for us, there's a wonderful Ruby gem called ActiveRecord (written by the authors of Ruby on Rails) that automates the heavy lifting of connecting to a database and performing CRUD operations. Let's see how we can use ActiveRecord to interact with the `contacts` table that we created.
