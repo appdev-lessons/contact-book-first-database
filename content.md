@@ -316,13 +316,17 @@ When we deploy our apps with Render, we use a file named `render.yaml` for confi
 
 Among other things, `config/database.yml` is how we tell Rails which database we want it to connect to. Currently, on Line 27, the database is set to `rails_template_development` — this is a default name that was automatically generated when I first created this blank Rails app for us.
 
-Let's ask Rails to connect to the database that we created instead. Edit Line 26 of `config/database.yml` to be:
+Let's ask Rails to connect to the database that we created instead. Edit Line 27 of `config/database.yml` to be:
 
-```yml{4:(13-24)}
+```yml{6:(13-24)}
+# ...
+
 development:
   adapter: sqlite3
   <<: *default
   database: contact_book
+
+# ...
 ```
 
 In your terminal, quit out of `psql` with the `\q` command, or open a new terminal tab; and at a bash prompt, run the command `rails dbconsole`. You should see output like this:
@@ -353,6 +357,13 @@ my_contact_book=# \dt
 ```
 
 And we can see the table and data that we previously created. **So: we update the `config/database.yml` file to connect Rails to a specific database.**
+
+- The `config/database.yml` file in a Rails app
+- Formatting content so that a user's browser can display it in an accessible, pleasing way.
+  - Yes!
+- Generating dynamic, unique responses to each HTTP request.
+  - Not quite. That's why we need to learn Ruby!
+{: .choose_best #html_is title="HTML is for?" points="1" answer="1" }
 
 ### The /rails/db GUI
 
