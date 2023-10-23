@@ -314,12 +314,15 @@ All Rails apps come out-of-the-box with a file called `config/database.yml`. `.y
 When we deploy our apps with Render, we use a file named `render.yaml` for configuration. The extension `.yml` and `.yaml` are equivalent file endings: both indicate the file is of "Yet Another Markup Language" (YAML) type.
 </aside>
 
-Among other things, `config/database.yml` is how we tell Rails which database we want it to connect to. Currently, on Line 26, the database is set to `rails_template_development` — this is a default name that was automatically generated when I first created this blank Rails app for us.
+Among other things, `config/database.yml` is how we tell Rails which database we want it to connect to. Currently, on Line 27, the database is set to `rails_template_development` — this is a default name that was automatically generated when I first created this blank Rails app for us.
 
 Let's ask Rails to connect to the database that we created instead. Edit Line 26 of `config/database.yml` to be:
 
-```yml
-database: my_contact_book
+```yml{4:(13-24)}
+development:
+  adapter: sqlite3
+  <<: *default
+  database: contact_book
 ```
 
 In your terminal, quit out of `psql` with the `\q` command, or open a new terminal tab; and at a bash prompt, run the command `rails dbconsole`. You should see output like this:
