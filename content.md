@@ -428,17 +428,19 @@ Then Rails will automatically `require` that class in _every_ other file in our 
 Notice that we named the class singularly (`Contact`), rather than plurally (`Contacts`). This is because each instance of this class is going to represent one **row** from the contacts table. It's similar to how the `String` class is called `String`, not `Strings`.
 
 - Select all that are true:
-- The `app/models/` folder contains our database software.
-  - Not quite, re-read the previous section.
 - The files in the `app/models/` folder allow us to interact with our database relations (a.k.a. "tables").
   - Yes!
+- The `app/models/` folder contains our database software.
+  - Not quite, re-read the previous section.
 - Our database table is called `Contacts` and our model class is also `Contacts`.
   - Not quite, re-read the previous section.
 - Our database table is called `contacts` and our model class is called `Contacts`.
   - Not quite, re-read the previous section.
 - Our database table is called `contacts` and our model class is called `Contact`.
   - Yes!
-{: .choose_all #first_model title="First model" points="2" answer="[2,5]" }
+- In Ruby, an uppercase letter at the start of an object _always_ indicates a class.
+  - Yes!
+{: .choose_all #first_model title="First model" points="3" answer="[1,5,6]" }
 
 ### rails console
 
