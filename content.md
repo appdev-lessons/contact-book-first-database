@@ -593,7 +593,7 @@ We now have two models, `Contact` and `Zebra`, which both interact with the same
 
 This is an example of Rails' philosophy of "convention over configuration". If you follow conventional patterns (like naming your model the same thing as your table), then Rails will by default _just work_ without us having to specify every little thing. But if you want to break from convention, Rails always gives you a way to do that too.
 
-<div class="bg-blue-100 py-1 px-5" markdown="1">
+<div class="bg-blue-100 py-1 px-5 bleed-full" markdown="1">
 
 **Checkpoint:**
 
