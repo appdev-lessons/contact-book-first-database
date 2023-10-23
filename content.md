@@ -427,6 +427,19 @@ Then Rails will automatically `require` that class in _every_ other file in our 
 
 Notice that we named the class singularly (`Contact`), rather than plurally (`Contacts`). This is because each instance of this class is going to represent one **row** from the contacts table. It's similar to how the `String` class is called `String`, not `Strings`.
 
+- Select all that are true:
+- The `app/models/` folder contains our database software.
+  - Not quite, re-read the previous section.
+- The files in the `app/models/` folder allow us to interact with our database relations (a.k.a. "tables").
+  - Yes!
+- Our database table is called `Contacts` and our model is also `Contacts`.
+  - Not quite, re-read the previous section.
+- Our database table is called `contacts` and our model is called `Contacts`.
+  - Not quite, re-read the previous section.
+- Our database table is called `contacts` and our model is called `Contact`.
+  - Yes!
+{: .choose_all #first_model title="First model" points="2" answer="[2,5]" }
+
 ### rails console
 
 Let's start to experiment with the `Contact` class. Open an IRB session at a bash prompt with `irb`. Within IRB, try creating a new instance of the `Contact` class with `Contact.new`. You should see an error message:
