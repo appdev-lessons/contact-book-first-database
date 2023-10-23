@@ -359,9 +359,9 @@ my_contact_book=# \dt
 And we can see the table and data that we previously created. **So: we update the `config/database.yml` file to connect Rails to a specific database.**
 
 - The `config/database.yml` file in a Rails app
-- Allows us to connect to any Postgres database.
+- allows us to connect to any Postgres database.
   - Yes!
-- Should never be edited.
+- should never be edited.
   - Not quite. You should have edited it in the previous step
 {: .choose_best #config_database title="config/database.yml" points="1" answer="1" }
 
