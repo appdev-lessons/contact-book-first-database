@@ -510,7 +510,7 @@ Voilà! The `Contact` class has now inherited _hundreds_ of methods that will he
   - Not quite. This operator means "inherit" in the case of classes.
 - Pass all of the methods from the class on the right into the class on the left.
   - Yes!
-{: .choose_best #inheritance title="Inheritance" points="1" answer="2" }
+{: .choose_best #inheritance_1 title="Inheritance, 1" points="1" answer="2" }
 
 #### Reloading `rails console`
 
@@ -538,6 +538,13 @@ Loading development environment (Rails 7.0.4.3)
 ```
 
 And now it works! We can see from the output that the `.count` method issues some SQL to the database, transforms the result into a Ruby object (an `Integer`, in this case), and then returns it.
+
+- We can use `.count` because:
+- We defined it ourselves in the `Contact` model.
+  - Not quite.
+- We _inherited_ the method from the `ActiveRecord::Base` model.
+  - Yes!
+{: .choose_best #inheritance_2 title="Inheritance, 2" points="1" answer="2" }
 
 ### Configuring the table name
 
