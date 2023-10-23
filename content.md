@@ -409,6 +409,8 @@ Let's create a class called `Contact` to deal with the `contacts` table for us:
 At this point, you should stop copy-pasting and instead start typing out the examples again. We very much want to build muscle memory around using ActiveRecord.
 {: .bg-red-100.py-1.px-5 }
 
+Create a new file called `contact.rb` in the `app/models/` folder in your codespace, and fill it in with the following:
+
 ```ruby
 # app/models/contact.rb
 
