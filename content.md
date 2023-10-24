@@ -26,6 +26,11 @@ Importantly, we'll learn how to do this directly within the database and also _i
 
 ## Setup
 
+<div class="bg-blue-100 py-1 px-5" markdown="1">
+
+The GitHub repository associated with this lesson is just for you to experiment with a database. There are also quiz questions throughout this lesson. You will need to answer those questions to check your understanding and get a grade.
+</div>
+
 [Fork this repository](https://github.com/appdev-projects/contact-book/fork) and create a codespace. There are no automated tests in this project.
 
 The starting point is a blank Rails app; there's nothing else in it to begin with.
@@ -47,6 +52,19 @@ Some databases come with barebones GUIs, but those GUIs are not intended for end
 Relational databases, the kind of database that powers most apps, use a special language called Structured Query Language (SQL). Any app (whether Ruby, Python, Java, etc) that wants to store data in and retrieve data from a relational database must ultimately output SQL commands and send them to the database for processing.
 
 In particular, we're going to use a very powerful and popular open-source database known as PostgreSQL (or "Postgres", for short). We're first going to see how to work with Postgres directly, but we'll soon move on to working with Postgres through Ruby. That will enable us to integrate permanent storage into our Rails apps – finally! Let's get started.
+
+- Select all that are true:
+- Structured Query Language (SQL) is only used for Ruby apps.
+  - Not quite, re-read the previous section.
+- SQL is the language of databases.
+  - Yes!
+- Databases are part of a Rails app and can't be used by other types of apps.
+  - Not quite, re-read the previous section.
+- Databases are a piece of software separate from our app.
+  - Yes!
+- Our apps provide an interface to interact with a database.
+  - Yes!
+{: .choose_all #databases_and_sql title="Databases and SQL" points="3" answer="[2,4,5]" }
 
 ## Working directly with Postgres
 
@@ -267,6 +285,21 @@ If you copy-paste the above into `psql` and then `SELECT * FROM contacts;` again
 
 Notice that values for `id` and `created_at` were automatically assigned. You could shut down your codespace, come back tomorrow, and this data would still be there. Finally, persistent storage!
 
+- Select all that are true:
+- A "relation" is a single record from the database.
+  - Not quite, re-read the previous section.
+- A "relation" is a set of records from the database.
+  - Yes!
+- We usually think of a "relation" as a "table" in our database.
+  - Yes!
+- Postgres is a language.
+  - Not quite.
+- Postgres is a database software that we interact with using the SQL language.
+  - Yes!
+- Persistent storage allows us to permanently store database records.
+  - Yes!
+{: .choose_all #relations_and_postgres title="Relations and Postgres" points="4" answer="[2,3,5,6]" }
+
 ## Interacting with Postgres from within a Rails app
 
 Everything we saw in the previous section had nothing to do with Ruby or Rails; we were working directly with Postgres through its built-in `psql` program.
@@ -277,12 +310,23 @@ Now let's see how we can get our Rails app talking to Postgres, so that we can u
 
 All Rails apps come out-of-the-box with a file called `config/database.yml`. `.yml` is the extension for a markup language called "Yet Another Markup Language". It's supposed to be easy to type, sort of like Markdown; but highly structured, sort of like JSON. `.yml` files are often used for configuration and settings.
 
-Among other things, `config/database.yml` is how we tell Rails which database we want it to connect to. Currently, on Line 26, the database is set to `rails_template_development` — this is a default name that was automatically generated when I first created this blank Rails app for us.
+<aside markdown="1">
+When we deploy our apps with Render, we use a file named `render.yaml` for configuration. The extension `.yml` and `.yaml` are equivalent file endings: both indicate the file is of "Yet Another Markup Language" (YAML) type.
+</aside>
 
-Let's ask Rails to connect to the database that we created instead. Edit Line 26 of `config/database.yml` to be:
+Among other things, `config/database.yml` is how we tell Rails which database we want it to connect to. Currently, on Line 27, the database is set to `rails_template_development` — this is a default name that was automatically generated when I first created this blank Rails app for us.
 
-```yml
-database: my_contact_book
+Let's ask Rails to connect to the database that we created instead. Edit Line 27 of `config/database.yml` to be:
+
+```yml{6:(13-27)}
+# ...
+
+development:
+  adapter: sqlite3
+  <<: *default
+  database: my_contact_book
+
+# ...
 ```
 
 In your terminal, quit out of `psql` with the `\q` command, or open a new terminal tab; and at a bash prompt, run the command `rails dbconsole`. You should see output like this:
@@ -314,6 +358,13 @@ my_contact_book=# \dt
 
 And we can see the table and data that we previously created. **So: we update the `config/database.yml` file to connect Rails to a specific database.**
 
+- The `config/database.yml` file in a Rails app
+- allows us to connect to any Postgres database.
+  - Yes!
+- should never be edited.
+  - Not quite. You should have edited it in the previous step
+{: .choose_best #config_database title="config/database.yml" points="1" answer="1" }
+
 ### The /rails/db GUI
 
 Now that we've connected our database to Rails, we can take advantage of a handy gem: Rails DB. Rails DB provides a GUI to our database, to make it easier for developers (not end users) to see what data is in the database:
@@ -338,6 +389,13 @@ You can also use the SQL Editor to issue raw SQL commands, or Export the data as
 
 We'll use the Rails DB GUI often to get a quick visual view into our database tables. But, what we really need to do is learn how to CRUD data into our tables using Ruby. Then and only then will we be able to write code to CRUD data from within our actions, which is our end goal!
 
+- Did you check out the `/rails/db` page in your live app preview?
+- Yes, it's really useful.
+  - Good! Thanks, Ruby community for this awesome gem!
+- No, I'm just reading.
+  - Do or do not, there is no read!
+{: .choose_best #rails_db title="rails/db" points="1" answer="1" }
+
 ## ActiveRecord
 
 Fortunately for us, there's a wonderful Ruby gem called ActiveRecord (written by the authors of Ruby on Rails) that automates the heavy lifting of connecting to a database and performing CRUD operations. Let's see how we can use ActiveRecord to interact with the `contacts` table that we created.
@@ -346,10 +404,12 @@ Fortunately for us, there's a wonderful Ruby gem called ActiveRecord (written by
 
 For each table that we want to interact with, we will create a Ruby class to act as a translator to that table. This Ruby class will generate SQL, send it to the database, and transform the data sent back into Ruby objects that are easy for us to work with. We refer to these classes  as "models", and we place them in the `app/models` folder.
 
-Let's create a class called `Contact` to deal with the `contacts` table for us:
+Let's create a class called `Contact` to deal with the `contacts` table for us.
 
 At this point, you should stop copy-pasting and instead start typing out the examples again. We very much want to build muscle memory around using ActiveRecord.
 {: .bg-red-100.py-1.px-5 }
+
+Create a new file called `contact.rb` in the `app/models/` folder in your codespace, and fill it in with the following:
 
 ```ruby
 # app/models/contact.rb
@@ -366,6 +426,21 @@ If we:
 Then Rails will automatically `require` that class in _every_ other file in our app. Phew! That will save us from typing hundreds of `require` statements.
 
 Notice that we named the class singularly (`Contact`), rather than plurally (`Contacts`). This is because each instance of this class is going to represent one **row** from the contacts table. It's similar to how the `String` class is called `String`, not `Strings`.
+
+- Select all that are true:
+- The files in the `app/models/` folder allow us to interact with our database relations (a.k.a. "tables").
+  - Yes!
+- The `app/models/` folder contains our database software.
+  - Not quite, re-read the previous section.
+- Our database table is called `Contacts` and our model class is also `Contacts`.
+  - Not quite, re-read the previous section.
+- Our database table is called `contacts` and our model class is called `Contacts`.
+  - Not quite, re-read the previous section.
+- Our database table is called `contacts` and our model class is called `Contact`.
+  - Yes!
+- In Ruby, an uppercase letter at the start of an object _always_ indicates a class.
+  - Yes!
+{: .choose_all #first_model title="First model" points="3" answer="[1,5,6]" }
 
 ### rails console
 
@@ -421,7 +496,7 @@ From now on, when we want a quick way of executing one line of Ruby at a time, w
 
 As of now, the `Contact` class isn't very interesting. But let's give it superpowers by inheriting from a class called `ActiveRecord::Base`:
 
-```ruby
+```ruby{3:(15-34)}
 # app/models/contact.rb
 
 class Contact < ActiveRecord::Base
@@ -429,6 +504,13 @@ end
 ```
 
 Voilà! The `Contact` class has now inherited _hundreds_ of methods that will help us CRUD data in the `contacts` table.
+
+- In Ruby, when we use the `<` operator between two classes it means:
+- The class on the right is greater than the class on the left.
+  - Not quite. This operator means "inherit" in the case of classes.
+- Pass all of the methods from the class on the right into the class on the left.
+  - Yes!
+{: .choose_best #inheritance_1 title="Inheritance, 1" points="1" answer="2" }
 
 #### Reloading `rails console`
 
@@ -457,6 +539,13 @@ Loading development environment (Rails 7.0.4.3)
 
 And now it works! We can see from the output that the `.count` method issues some SQL to the database, transforms the result into a Ruby object (an `Integer`, in this case), and then returns it.
 
+- We can use `.count` because:
+- We defined it ourselves in the `Contact` model.
+  - Not quite.
+- We _inherited_ the method from the `ActiveRecord::Base` model.
+  - Yes!
+{: .choose_best #inheritance_2 title="Inheritance, 2" points="1" answer="2" }
+
 ### Configuring the table name
 
 You might be wondering, "How did the `Contact.count` method know to use the table name `contacts` when it was writing that SQL statement?"
@@ -471,7 +560,7 @@ end
 ```
 
 If you `exit`, launch a fresh `rails c` to pick up the new file,
-and then try `Zebra.count` , you'll see an error:
+and then try `Zebra.count`, you'll see an error:
 
 ```
 contact-book main % rails c
@@ -504,7 +593,7 @@ We now have two models, `Contact` and `Zebra`, which both interact with the same
 
 This is an example of Rails' philosophy of "convention over configuration". If you follow conventional patterns (like naming your model the same thing as your table), then Rails will by default _just work_ without us having to specify every little thing. But if you want to break from convention, Rails always gives you a way to do that too.
 
----
+<div class="bg-blue-100 py-1 px-5 bleed-full" markdown="1">
 
 **Checkpoint:**
 
@@ -518,7 +607,7 @@ In `psql`, I created a database with the command:
 CREATE DATABASE my_contact_book;
 ```
 
-Then, I conncected to that database with the command:
+Then, I connected to that database with the command:
 
 ```
 \connect my_contact_book
@@ -543,13 +632,13 @@ CREATE TABLE contacts (
 );
 ```
 
-Then, we configured our Rails application to use this database by editing Line 26 of `config/database.yml` to:
+Then, we configured our Rails application to use this database by editing Line 27 of `config/database.yml` to:
 
 ```yml
 database: my_contact_book
 ```
 
-Then, we created a model called `Contact:
+Then, we created a model called `Contact`:
 
 ```ruby
 # app/models/contact.rb
@@ -564,6 +653,8 @@ And that's it!
 
 - [Here you can see the changes that I've made so far.](https://github.com/raghubetina/contact-book/commit/5f1cd87babdbde964d822c4007eff8355b6de1e2)
 - [Here you can browse my entire codebase at this point in time.](https://github.com/raghubetina/contact-book/tree/5f1cd87babdbde964d822c4007eff8355b6de1e2)
+
+</div>
 
 ### Creating a new record
 
@@ -643,9 +734,20 @@ Let's add another record:
 => 3
 ```
 
+- The `id` column for a new database record...
+- is the _foreign key_, and must be manually assigned by us before we `.save` the record.
+  - Not quite.
+- is the _primary key_, and must be manually assigned by us before we `.save` the record.
+  - Not quite.
+- is the _foreign key_, and is automatically assigned when we `.save` the record.
+  - Not quite.
+- is the _primary key_, and is automatically assigned when we `.save` the record.
+  - Yes! And good thing, too. That would be hard to keep track of and assign uniquely for every record.
+{: .choose_best #id_column title="ID column" points="1" answer="4" }
+
 ### Creating sample data
 
-Over the new few sections, we're going to learn how to find and retrieve records from our `contacts` table. Right now, in my `contacts` table, I only have 3 rows. You might have more or less. But it would be nice to have hundreds of rows in the table before we practice things like sorting, searching, etc.
+Over the next few sections, we're going to learn how to find and retrieve records from our `contacts` table. Right now, in my `contacts` table, I only have 3 rows. (You might have more or less, depending on if you followed along exactly with the lesson thus far.) But it would be nice to have hundreds of rows in the table before we practice things like sorting, searching, etc.
 
 It would be very tedious to create hundreds of records by typing them one by one into `rails console` like we've been doing. I'm way too lazy for that! But now that we know how to insert records using Ruby, we can automate the process by writing a program.
 
@@ -947,7 +1049,7 @@ task(:sample_contacts => :environment) do
 end
 ```
 
-The `destroy_all` method will delete _all_ of the records from a table, so be very careful with it! As you can see, I wrapped it within an `if` statement so that it will only happen in the development environment (our codespace), not the production environment (e.g. our server on Fly.io).
+The `destroy_all` method will delete _all_ of the records from a table, so be very careful with it! As you can see, I wrapped it within an `if` statement so that it will only happen in the development environment (our codespace), not the production environment (e.g. our server on Render).
 
 If you run the task now, you should see only 202 records in your table; the earlier ones we created are all gone. Also, notice that the IDs do not get reset; when a record is deleted, its ID number is "retired":
 
@@ -959,10 +1061,13 @@ Having realistic sample data is incredibly helpful while designing and developin
 
 In most of our projects going forward, I will include a sample data rake task for you. On your own projects, you'll have to write the sample data task for yourself!
 
+<div class="bg-blue-100 py-1 px-5" markdown="1">
+
 **Checkpoint:**
 
 - [Here you can see the changes that I've made since the last commit.](https://github.com/raghubetina/contact-book/commit/cf33dce26106a2368ce9c91fb155196adf31ebc1)
 - [Here you can browse my entire codebase at this point in time.](https://github.com/raghubetina/contact-book/tree/cf33dce26106a2368ce9c91fb155196adf31ebc1)
+</div>
 
 ### Retrieving existing records
 
@@ -993,7 +1098,7 @@ Notice the class of the return value: `Contact::ActiveRecord_Relation`.
 An ActiveRecord Relation is the class that represents _a set of multiple records_ from the table (hence the name "relation").
 {: .bg-red-100.py-1.px-5 }
 
-ActiveRecord Relations are very similar to `Array`s. [Any method that you can call on an `Array`](https://learn.firstdraft.com/lessons/73), you can also call on a Relation; `.at`, `.each`, `.sample`, etc.
+ActiveRecord Relations are very similar to `Array`s. [Any method that you can call on an `Array`](https://learn.firstdraft.com/lessons/73-ruby-intro-array), you can also call on a Relation; `.at`, `.each`, `.sample`, etc.
 
 For example, let's save the relation containing all the records to a variable `x`, and then access the first element in the relation with `x.at(0)`:
 
@@ -1047,6 +1152,15 @@ Each of these objects are instances of the `Contact` class which represent diffe
 
 Since we access the first and last elements of relations very often, there are convenience methods for accessing them:  `.first` (instead of `.at(0)`) and `.last` (instead of `.at(-1)`). You can use whichever one you prefer.
 
+- `Contact.all` and `Contact.all.at(0)` return, respectively:
+- An ActiveRecord Relation (_multiple records_) and an instance of the `Contact` class (_one record_).
+  - Yes!
+- An ActiveRecord Relation (_one record_) and an instance of the `Contact` class (_many records_).
+  - Not quite, re-read the previous section.
+- An instance of the `Contact` class (_multiple records_) and an ActiveRecord Relation (_one record_).
+  - Not quite, re-read the previous section.
+{: .choose_best #records_and_relations title="Records and Relations" points="1" answer="1" }
+
 #### Attribute accessor methods
 
 Let's pull out a random record with `Contact.all.sample` and store it in a variable `c`:
@@ -1090,7 +1204,7 @@ Once we have an individual instance of `Contact` stored in a variable, we can us
 
 What happens if you try calling a method for a column that doesn't exist? For example, what if we try `.middle_name`?
 
-```ruby
+```
 [11] pry(main)> c.middle_name
 NoMethodError: undefined method `middle_name' for #<Contact id: 186, first_name: "Clyde", last_name: "Considine", date_of_birth: "1951-11-08", street_address_1: "318 Veola Manors", street_address_2: "Apt. 905", city: "North Loriannberg", state: "IN", zip: "87270", phone: "275-428-4275 x76972", notes: "Of course it is happening inside your head, Harry,...", created_at: "2023-07-29 18:49:54.894531000 +0000">
 ```
@@ -1118,6 +1232,13 @@ Contact.all.order({ :last_name => :asc, :first_name => :asc, :date_of_birth => :
 ```
 
 This would first order by last name, then break ties using first name, then break ties using date of birth.
+
+- I am experimenting with these cool ActiveRecord methods in the `rails console`:
+- I'm just reading.
+  - Oh no! Do or do not, there is no read.
+- Yes.
+  - Good!
+{: .choose_best #i_am_experimenting title="I am experimenting" points="1" answer="2" }
 
 #### reverse_order
 
@@ -1179,6 +1300,13 @@ c = Contact.where({ :id => 2 }).at(0)
 c.first_name
 ```
 
+- In the `rails console`, running `Contact.where({ :id => 2 }).first_name` returns:
+- A name, because `.where` returns a single record.
+  - Really? Did you try it? Re-read the previous section and give it a try.
+- An error message.
+  - Yes! `.where` always returns an ActiveRecord Relation (multiple records), so we need to take one record out with `.at(0)` or `.first` to get the `.first_name` of that record.
+{: .choose_best #where_returns title=".where returns..." points="1" answer="2" }
+
 #### Using where with an array of criteria
 
 **Returns:** an array of records
@@ -1225,9 +1353,12 @@ Contact.where({ :last_name => "Mouse" }).where.not({ :first_name => "Mickey" })
 
 You tack `where.not` on to a collection and it accepts all the same arguments as `.where`, but the result set is all of the records in the original collection _except_ the ones that match the criteria.
 
+<div class="bg-blue-100 py-1 px-5" markdown="1">
+
 #### Where is everything
 
 **Everything from looking up a movie's director to putting together a feed in a social network ultimately boils down to `.where`s and `.each`s.** I can't emphasize the importance of `.where` enough. Ask lots of questions.
+</div>
 
 ### UPDATE
 
