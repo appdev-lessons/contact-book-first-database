@@ -734,6 +734,17 @@ Let's add another record:
 => 3
 ```
 
+- The `id` column for a new database record...
+- is the _foreign key_, and must be manually assigned by us before we `.save` the record.
+  - Not quite.
+- is the _primary key_, and must be manually assigned by us before we `.save` the record.
+  - Not quite.
+- is the _foreign key_, and is automatically assigned when we `.save` the record.
+  - Not quite.
+- is the _primary key_, and is automatically assigned when we `.save` the record.
+  - Yes! And good thing, too. That would be hard to keep track of and assign uniquely for every record.
+{: .choose_best #id_column title="ID column" points="1" answer="4" }
+
 ### Creating sample data
 
 Over the new few sections, we're going to learn how to find and retrieve records from our `contacts` table. Right now, in my `contacts` table, I only have 3 rows. You might have more or less. But it would be nice to have hundreds of rows in the table before we practice things like sorting, searching, etc.
