@@ -1250,7 +1250,7 @@ This would first order by last name, then break ties using first name, then brea
 Contact.order(:first_name).reverse_order
 ```
 
-#### where
+### where
 
 **Returns:** an ActiveRecord relation
 
@@ -1329,7 +1329,7 @@ Contact.where({ :last_name => "Mouse" }).where({ :first_name => "Minnie" })
 
 This _narrows_ the search.
 
-### where(this).or(that)
+#### where(this).or(that)
 
 **Returns:** an array of records
 
