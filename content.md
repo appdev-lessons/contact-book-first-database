@@ -747,7 +747,7 @@ Let's add another record:
 
 ### Creating sample data
 
-Over the new few sections, we're going to learn how to find and retrieve records from our `contacts` table. Right now, in my `contacts` table, I only have 3 rows. You might have more or less. But it would be nice to have hundreds of rows in the table before we practice things like sorting, searching, etc.
+Over the next few sections, we're going to learn how to find and retrieve records from our `contacts` table. Right now, in my `contacts` table, I only have 3 rows. (You might have more or less, depending on if you followed along exactly with the lesson thus far.) But it would be nice to have hundreds of rows in the table before we practice things like sorting, searching, etc.
 
 It would be very tedious to create hundreds of records by typing them one by one into `rails console` like we've been doing. I'm way too lazy for that! But now that we know how to insert records using Ruby, we can automate the process by writing a program.
 
@@ -1049,7 +1049,7 @@ task(:sample_contacts => :environment) do
 end
 ```
 
-The `destroy_all` method will delete _all_ of the records from a table, so be very careful with it! As you can see, I wrapped it within an `if` statement so that it will only happen in the development environment (our codespace), not the production environment (e.g. our server on Fly.io).
+The `destroy_all` method will delete _all_ of the records from a table, so be very careful with it! As you can see, I wrapped it within an `if` statement so that it will only happen in the development environment (our codespace), not the production environment (e.g. our server on Render).
 
 If you run the task now, you should see only 202 records in your table; the earlier ones we created are all gone. Also, notice that the IDs do not get reset; when a record is deleted, its ID number is "retired":
 
@@ -1061,10 +1061,13 @@ Having realistic sample data is incredibly helpful while designing and developin
 
 In most of our projects going forward, I will include a sample data rake task for you. On your own projects, you'll have to write the sample data task for yourself!
 
+<div class="bg-blue-100 py-1 px-5" markdown="1">
+
 **Checkpoint:**
 
 - [Here you can see the changes that I've made since the last commit.](https://github.com/raghubetina/contact-book/commit/cf33dce26106a2368ce9c91fb155196adf31ebc1)
 - [Here you can browse my entire codebase at this point in time.](https://github.com/raghubetina/contact-book/tree/cf33dce26106a2368ce9c91fb155196adf31ebc1)
+</div>
 
 ### Retrieving existing records
 
@@ -1095,7 +1098,7 @@ Notice the class of the return value: `Contact::ActiveRecord_Relation`.
 An ActiveRecord Relation is the class that represents _a set of multiple records_ from the table (hence the name "relation").
 {: .bg-red-100.py-1.px-5 }
 
-ActiveRecord Relations are very similar to `Array`s. [Any method that you can call on an `Array`](https://learn.firstdraft.com/lessons/73), you can also call on a Relation; `.at`, `.each`, `.sample`, etc.
+ActiveRecord Relations are very similar to `Array`s. [Any method that you can call on an `Array`](https://learn.firstdraft.com/lessons/73-ruby-intro-array), you can also call on a Relation; `.at`, `.each`, `.sample`, etc.
 
 For example, let's save the relation containing all the records to a variable `x`, and then access the first element in the relation with `x.at(0)`:
 
@@ -1148,6 +1151,15 @@ Let's look at the last element with `x.at(-1)`:
 Each of these objects are instances of the `Contact` class which represent different rows in our table.
 
 Since we access the first and last elements of relations very often, there are convenience methods for accessing them:  `.first` (instead of `.at(0)`) and `.last` (instead of `.at(-1)`). You can use whichever one you prefer.
+
+- `Contact.all` and `Contact.all.at(0)` return, respectively:
+- An ActiveRecord Relation (_multiple records_) and an instance of the `Contact` class (_one record_).
+  - Yes!
+- An ActiveRecord Relation (_one record_) and an instance of the `Contact` class (_many records_).
+  - Not quite, re-read the previous section.
+- An instance of the `Contact` class (_multiple records_) and an ActiveRecord Relation (_one record_).
+  - Not quite, re-read the previous section.
+{: .choose_best #records_and_relations title="Records and Relations" points="1" answer="1" }
 
 #### Attribute accessor methods
 
@@ -1221,6 +1233,13 @@ Contact.all.order({ :last_name => :asc, :first_name => :asc, :date_of_birth => :
 
 This would first order by last name, then break ties using first name, then break ties using date of birth.
 
+- I am experimenting with these cool ActiveRecord methods in the `rails console`:
+- I'm just reading.
+  - Oh no! Do or do not, there is no read.
+- Yes.
+  - Good!
+{: .choose_best #i_am_experimenting title="I am experimenting" points="1" answer="2" }
+
 #### reverse_order
 
 **Returns:** an ActiveRecord relation
@@ -1280,6 +1299,13 @@ Think about it before you try it. Then, try it.
 c = Contact.where({ :id => 2 }).at(0)
 c.first_name
 ```
+
+- In the `rails console`, running `Contact.where({ :id => 2 }).first_name` returns:
+- A name, because `.where` returns a single record.
+  - Really? Did you try it? Re-read the previous section and give it a try.
+- An error message.
+  - Yes! `.where` always returns an ActiveRecord Relation (multiple records), so we need to take one record out with `.at(0)` or `.first` to get the `.first_name` of that record.
+{: .choose_best #where_returns title=".where returns..." points="1" answer="2" }
 
 #### Using where with an array of criteria
 
