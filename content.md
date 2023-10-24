@@ -1355,7 +1355,7 @@ You tack `where.not` on to a collection and it accepts all the same arguments as
 
 <div class="bg-blue-100 py-1 px-5" markdown="1">
 
-#### Where is everything
+#### `.where` is everything
 
 **Everything from looking up a movie's director to putting together a feed in a social network ultimately boils down to `.where`s and `.each`s.** I can't emphasize the importance of `.where` enough. Ask lots of questions.
 </div>
