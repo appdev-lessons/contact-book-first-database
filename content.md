@@ -1204,7 +1204,7 @@ Once we have an individual instance of `Contact` stored in a variable, we can us
 
 What happens if you try calling a method for a column that doesn't exist? For example, what if we try `.middle_name`?
 
-```ruby
+```
 [11] pry(main)> c.middle_name
 NoMethodError: undefined method `middle_name' for #<Contact id: 186, first_name: "Clyde", last_name: "Considine", date_of_birth: "1951-11-08", street_address_1: "318 Veola Manors", street_address_2: "Apt. 905", city: "North Loriannberg", state: "IN", zip: "87270", phone: "275-428-4275 x76972", notes: "Of course it is happening inside your head, Harry,...", created_at: "2023-07-29 18:49:54.894531000 +0000">
 ```
