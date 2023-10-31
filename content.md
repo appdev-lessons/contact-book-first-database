@@ -1291,6 +1291,16 @@ x = Contact.where({ :id => 2 })
 x.first_name
 ```
 
+<div class="bg-blue-100 py-1 px-5" markdown="1">
+The above code will only return something if a record with the `id` of 2 _exists in your database_. If you get an error, you could run:
+
+```ruby
+Contact.last
+```
+
+And read the `id` number of that output and use that number in place of 2.
+</div>
+
 Think about it before you try it. Then, try it.
 
 **We must use `.at(0)`** (a.k.a `.first`)  or `.at(-1)` (a.k.a. `.last`) or some other method **to take a row out of the relation** before we can use any of its instance methods. It doesn't make sense to ask the relation itself for e.g. `.first_name`; the relation is not an individual record.
