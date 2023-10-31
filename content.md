@@ -1295,7 +1295,7 @@ x.first_name
 The above code will only return something if a record with the `id` of 2 _exists in your database_. If you get an error, you could run:
 
 ```ruby
-Contact.last
+Contact.all.last
 ```
 
 And read the `id` number of that output and use that number in place of 2.
