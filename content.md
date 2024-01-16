@@ -438,7 +438,7 @@ Notice that we named the class singularly (`Contact`), rather than plurally (`Co
   - Not quite, re-read the previous section.
 - Our database table is called `contacts` and our model class is called `Contact`.
   - Yes!
-- In Ruby, an uppercase letter at the start of an object _always_ indicates a class.
+- In Ruby, classes _always_ begin with an uppercase letter.
   - Yes!
 {: .choose_all #first_model title="First model" points="3" answer="[1,5,6]" }
 
