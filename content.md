@@ -26,7 +26,7 @@ Importantly, we'll learn how to do this directly within the database and also _i
 
 ## Setup
 
-<div class="bg-blue-100 py-1 px-5" markdown="1">
+<div class="alert alert-primary">
 
 The GitHub repository associated with this lesson is just for you to experiment with a database. There are also quiz questions throughout this lesson. You will need to answer those questions to check your understanding and get a grade.
 </div>
@@ -103,7 +103,7 @@ postgres=# \list
 (5 rows)
 ```
 
-<div class="bg-red-100 py-1 px-5" markdown="1">
+<div class="alert alert-danger">
 **IMPORTANT NOTE:** Sometimes the output of a command-line command is longer than the terminal window can accommodate at once. In that case, you will see a `:▮` at the bottom of the terminal, which means it's waiting for you to scroll through the rest of the output.
 
 You can scroll through one line at a time with <kbd>return</kbd> or one page at a time with <kbd>space</kbd>. Once you reach the end of the output, you will see `(END)`.
@@ -168,8 +168,9 @@ Did not find any relations.
 
 "Relation" is the formal, computer science-y term for what we've been calling a "table" — a set of records (formally known as "tuples"). The concept of a "relation" is where the name "relational database" comes from. The name does _not_ come from the concept of one-to-many and many-to-many associations between records, confusingly also known as "relationships".
 
+<div class="alert alert-danger">
 We're going to be seeing the term "relation" a lot moving forward — look out for it and get into the habit of thinking **"a 'relation' is 'a _set_ of _multiple records_'"**.
-{: .bg-red-100.py-1.px-5 }
+</div>
 
 It makes sense that our brand new database doesn't contain any relations yet. Let's create a table called "contacts" by issuing some SQL at the `my_contact_book=# ` prompt:
 
@@ -310,7 +311,7 @@ Now let's see how we can get our Rails app talking to Postgres, so that we can u
 
 All Rails apps come out-of-the-box with a file called `config/database.yml`. `.yml` is the extension for a markup language called "Yet Another Markup Language". It's supposed to be easy to type, sort of like Markdown; but highly structured, sort of like JSON. `.yml` files are often used for configuration and settings.
 
-<aside markdown="1">
+<aside>
 When we deploy our apps with Render, we use a file named `render.yaml` for configuration. The extension `.yml` and `.yaml` are equivalent file endings: both indicate the file is of "Yet Another Markup Language" (YAML) type.
 </aside>
 
@@ -406,8 +407,9 @@ For each table that we want to interact with, we will create a Ruby class to act
 
 Let's create a class called `Contact` to deal with the `contacts` table for us.
 
+<div class="alert alert-danger">
 At this point, you should stop copy-pasting and instead start typing out the examples again. We very much want to build muscle memory around using ActiveRecord.
-{: .bg-red-100.py-1.px-5 }
+</div>
 
 Create a new file called `contact.rb` in the `app/models/` folder in your codespace, and fill it in with the following:
 
@@ -593,7 +595,7 @@ We now have two models, `Contact` and `Zebra`, which both interact with the same
 
 This is an example of Rails' philosophy of "convention over configuration". If you follow conventional patterns (like naming your model the same thing as your table), then Rails will by default _just work_ without us having to specify every little thing. But if you want to break from convention, Rails always gives you a way to do that too.
 
-<div class="bg-blue-100 py-1 px-5 bleed-full" markdown="1">
+<div class="alert alert-primary bleed-full">
 
 **Checkpoint:**
 
@@ -1061,7 +1063,7 @@ Having realistic sample data is incredibly helpful while designing and developin
 
 In most of our projects going forward, I will include a sample data rake task for you. On your own projects, you'll have to write the sample data task for yourself!
 
-<div class="bg-blue-100 py-1 px-5" markdown="1">
+<div class="alert alert-primary">
 
 **Checkpoint:**
 
@@ -1095,8 +1097,9 @@ We can retrieve all of the records in the table with the `.all` method:
 
 Notice the class of the return value: `Contact::ActiveRecord_Relation`.
 
+<div class="alert alert-danger">
 An ActiveRecord Relation is the class that represents _a set of multiple records_ from the table (hence the name "relation").
-{: .bg-red-100.py-1.px-5 }
+</div>
 
 ActiveRecord Relations are very similar to `Array`s. [Any method that you can call on an `Array`](https://learn.firstdraft.com/lessons/73-ruby-intro-array), you can also call on a Relation; `.at`, `.each`, `.sample`, etc.
 
@@ -1126,8 +1129,9 @@ For example, let's save the relation containing all the records to a variable `x
 
 (Your sample contacts will be different than mine, since we generated them with Faker.)
 
+<div class="alert alert-danger">
 Each element within the relation is an instance of the `Contact` class that represents one record.
-{: .bg-red-100.py-1.px-5 }
+</div>
 
 Let's look at the last element with `x.at(-1)`:
 
@@ -1281,8 +1285,9 @@ x.count
 
 #### where always returns a relation, never a single row
 
+<div class="alert alert-danger">
 The return value from `.where` is always a Relation, regardless of how many results there are.
-{: .bg-red-100.py-1.px-5 }
+</div>
 
 Whether there are 0, 1, or a million results, `.where` returns them within a Relation. What would you expect if you tried the following?
 
@@ -1291,7 +1296,7 @@ x = Contact.where({ :id => 2 })
 x.first_name
 ```
 
-<div class="bg-blue-100 py-1 px-5" markdown="1">
+<div class="alert alert-primary">
 The above code will only return something if a record with the `id` of 2 _exists in your database_. If you get an error, you could run:
 
 ```ruby
@@ -1363,7 +1368,7 @@ Contact.where({ :last_name => "Mouse" }).where.not({ :first_name => "Mickey" })
 
 You tack `where.not` on to a collection and it accepts all the same arguments as `.where`, but the result set is all of the records in the original collection _except_ the ones that match the criteria.
 
-<div class="bg-blue-100 py-1 px-5" markdown="1">
+<div class="alert alert-primary">
 
 #### `.where` is everything
 
@@ -1420,7 +1425,7 @@ Contact.where("last_name LIKE ?", "%bet%")
 
 The `?` in the first argument is a placeholder where the second argument, `"%bet%"`, gets inserted.
 
-<aside markdown="1">
+<aside>
 This is an advanced safety feature of Rails that prevents [SQL injection attacks](https://en.wikipedia.org/wiki/SQL_injection).
 </aside>
 
