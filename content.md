@@ -370,7 +370,7 @@ And we can see the table and data that we previously created. **So: we update th
 
 Now that we've connected our database to Rails, we can take advantage of a handy gem: Rails DB. Rails DB provides a GUI to our database, to make it easier for developers (not end users) to see what data is in the database:
 
-- Start your web server with `bin/dev`.
+- Start your web server with `bin/server`.
 - Open the live app preview. You should see the default Rails homepage, since we haven't defined a root route yet.
 - Manually navigate to the URL `/rails/db`. The route, controller, action, and view for this URL is provided for us by the Rails DB gem.
 
