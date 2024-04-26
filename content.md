@@ -516,7 +516,7 @@ Voilà! The `Contact` class has now inherited _hundreds_ of methods that will he
 
 #### Reloading `rails console`
 
-The first inherited method we'll try in `rails console` is `Contact.count`:
+The first inherited method we'll try in `rails console` is `Contact.count`. At the terminal where you have run `rails console` to start a console session, try:
 
 ```
 [2] pry(main)> Contact.count
