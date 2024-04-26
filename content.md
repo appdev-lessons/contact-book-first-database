@@ -420,12 +420,12 @@ class Contact
 end
 ```
 
-If we:
+In the code above we:
 
-1. Put a Ruby class in `app/models`.
-2. Name the file the same thing as the class (but the `snake_case`d version of the name, since it's a file).
+1. Put a Ruby class in `app/models`. (The file `app/models/contact.rb` containing the `class Contact`)
+2. Name the file the same thing as the class (but the `snake_case`d version of the name, since it's a file; `contact.rb` and `Contact` within it).
 
-Then Rails will automatically `require` that class in _every_ other file in our app. Phew! That will save us from typing hundreds of `require` statements.
+If we do exactly this, then Rails will automatically `require` that class in _every_ other file in our app. Phew! That will save us from typing hundreds of `require` statements.
 
 Notice that we named the class singularly (`Contact`), rather than plurally (`Contacts`). This is because each instance of this class is going to represent one **row** from the contacts table. It's similar to how the `String` class is called `String`, not `Strings`.
 
