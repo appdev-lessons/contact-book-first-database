@@ -458,7 +458,7 @@ contact-book main % irb
         from /home/student/.rvm/ruby-3.2.1/bin/irb:25:in `<main>'
 ```
 
-IRB can't find the `Contact` class, because we didn't `require` the file yet. Try it again after `require "./app/models/contact"`:
+IRB can't find the `Contact` class, because we didn't `require` the file yet. Try it again after typing the following in to the `irb` terminal prompt: `require "./app/models/contact"`
 
 ```
 3.2.1 :002 > require "./app/models/contact"
