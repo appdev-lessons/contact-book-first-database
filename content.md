@@ -385,7 +385,6 @@ You should see a page that looks like this:
 As an alternative to manually navigating to `/rails/db`, you can also click the "Database" link from our "Developer Toolbar" on the right side of the page:
 
 ![Dev toolbar gif](/assets/dev-toolbar.gif)
-{: .bleed-full }
 
 That 🛠️ icon for the "Dev Toolbar" is in all of our Rails applications to provide some handy links during development.
 
