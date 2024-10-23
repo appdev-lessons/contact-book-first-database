@@ -118,6 +118,7 @@ Let's create our own, brand new database called "my_contact_book" with our first
 ```sql
 CREATE DATABASE my_contact_book;
 ```
+{: copyable }
 
 `CREATE DATABASE` is the SQL command to start off a new database. The name of the database comes after `DATABASE`; the name should be `snake_case`.
 
@@ -190,6 +191,7 @@ CREATE TABLE contacts (
   created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 ```
+{: copyable }
 
 If you run that SQL at the `my_contact_book=#` prompt and then `\dt` again, you should now see that we have a relation called `contacts`:
 
@@ -272,6 +274,7 @@ INSERT INTO contacts (
   'We had a wonderful dinner at La Tavola!'
 );
 ```
+{: copyable }
 
 If you copy-paste the above into `psql` and then `SELECT * FROM contacts;` again, you should finally see some data in our table:
 
@@ -312,6 +315,7 @@ Now let's see how we can get our Rails app talking to Postgres, so that we can u
 All Rails apps come out-of-the-box with a file called `config/database.yml`. `.yml` is the extension for a markup language called "Yet Another Markup Language". It's supposed to be easy to type, sort of like Markdown; but highly structured, sort of like JSON. `.yml` files are often used for configuration and settings.
 
 <aside>
+
 When we deploy our apps with Render, we use a file named `render.yaml` for configuration. The extension `.yml` and `.yaml` are equivalent file endings: both indicate the file is of "Yet Another Markup Language" (YAML) type.
 </aside>
 
