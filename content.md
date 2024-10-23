@@ -382,6 +382,15 @@ You should see a page that looks like this:
 
 ![](https://res.cloudinary.com/dmxgp9oq2/image/upload/v1690491792/rails-db-1_s2v9iu.png)
 
+As an alternative to manually navigating to `/rails/db`, you can also click the "Database" link from our "Developer Toolbar" on the right side of the page:
+
+![Dev toolbar gif](/assets/dev-toolbar.gif)
+{: .bleed-full }
+
+That 🛠️ icon for the "Dev Toolbar" is in all of our Rails applications to provide some handy links during development.
+
+---
+
 In the left sidebar, there's a list of all the tables that are currently in the database. Click "contacts" to see the rows that are currently in that table:
 
 ![](https://res.cloudinary.com/dmxgp9oq2/image/upload/v1690491846/rails-db-2_uanp7x.png)
