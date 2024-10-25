@@ -395,11 +395,11 @@ If you tried to visit `/rails/db` just now, you should have seen a 404 "no route
 - Create a `.env` file in the root of your project
 - Add the `RAILS_DB_USERNAME` and `RAILS_DB_PASSWORD` environment variables to the `.env` file (copy and paste from below, but _change the \*\*\*\* values to something unique and secure_)
     
-    ```env
-    RAILS_DB_USERNAME=****
-    RAILS_DB_PASSWORD=****
-    ```
-    {: copyable }
+```env
+RAILS_DB_USERNAME=****
+RAILS_DB_PASSWORD=****
+```
+{: copyable }
 
 - Restart your server with `bin/server`
 - Visit the `/rails/db` page in your live app preview and log in with the username and password you just created.
