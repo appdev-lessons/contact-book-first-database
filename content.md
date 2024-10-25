@@ -389,7 +389,7 @@ That 🛠️ icon for the "Dev Toolbar" is in all of our Rails applications to p
 
 #### Add environment variables to access Rails DB
 
-If you tried to visit `/rails/db` just now, you should have seen a 404 "no route matches" error. Since `/rails/db` gives full access to CRUD in our database, we pre-configured our Rails projects to block access without two [secure environment variables for authorizing visitors](https://learn.firstdraft.com/lessons/52-storing-credentials-securely). You will need to:
+If you tried to visit `/rails/db` just now, you should have seen a 404 "no route matches" error. Since `/rails/db` gives full access to CRUD in our database, we pre-configured our Rails projects to block access without two [secure environment variables for authorizing visitors](https://learn.firstdraft.com/lessons/52-storing-credentials-securely#loading-environment-variables-in-ruby-on-rails) (**Note**, as the guide linked there states, since we are in Rails, you _don't_ need to add the `dotenv` gem and `bundle install`; it's already included out-of-the-box!). You will need to:
 
 - Cancel your server with `CTRL` + `C`
 - Create a `.env` file in the root of your project
