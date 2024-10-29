@@ -1584,14 +1584,15 @@ Given the above methods, try to answer the following questions about our data:
 - How many contacts are in California (abbreviation: CA)?
 - How many contacts have a last name starting with "G"?
 
-## Must See Movies
+## Link-in-bio and Must See Movies
 
-In the next project, we're going to start building an app whose database we've already designed — Must See Movies.
+In the next project, we'll rebuild our link-in-bio static HTML & CSS website into a database-backed Rails app. This is a good first introduction to building a database-backed app as we'll only need one single table to manage our list of links.
+
+Following that, we're going to start building an app whose database we've already designed — Must See Movies.
 
 In that project, the four tables we planned — movies, directors, characters, and actors — have already been created. I pre-created the tables to avoid e.g. typos in column names, which would make it hard for you to follow along.
 
 Given an already-created database and tables, we'll learn how we can use the wonderful gem ActiveRecord to interact with those tables in Ruby. ActiveRecord translates our Ruby into highly performant, secure SQL automatically.
-
 
 ---
 
