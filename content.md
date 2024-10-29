@@ -4,12 +4,14 @@ In this project, we'll interact with a real database for the first time.
 
 Our goal is to build an application that allows us to store contact information for people we know. The data we want to store will look something like this:
 
+<div class="table-responsive">
 | first_name | last_name | date_of_birth | street_address_1    | street_address_2 | city         | state | zip        | phone              | notes                                   |
 |------------|-----------|---------------|---------------------|------------------|--------------|-------|------------|--------------------|-----------------------------------------|
 | Carol      | Reynolds  | 20 Oct 2016   | 4556 Mirna Shores   | Apt. 111         | Stromanhaven | DE    | 13654-8312 | 308-571-8066 x3565 | We had a wonderful dinner at La Tavola! |
 | Alice      | Boyer     | 25 Oct 1977   | 7774 Gibson Station | Suite 284        | New Seth     | IN    | 70681      | 984.425.6912       | Ask about their mom                     |
 | Bob        | Stokes    | 30 Nov 1941   | 21817 Lionel Cliffs |                  | South Hailey | CA    | 32418      | +1-487-497-4041    | Loves tulips                            |
-{: .bleed-full }
+{: .table .table-bordered .table-hover }
+</div>
 
 Etc.
 
@@ -43,38 +45,38 @@ We could use the Ruby [File](https://ruby-doc.org/3.2.1/File.html) or [CSV](http
 
 Instead, we can outsource that job to a **database** — a piece of software that exists specifically for the purpose of making it easier for apps to store data permanently. Databases are separate from the app itself, so apps written in any language (Ruby, Python, Java, etc) can use any database (PostgreSQL, MySQL, SQLite, etc).
 
-Since databases exist for other _apps_ to use (not for humans to use directly), **the interface to a database is text**. Databases generally don't come with a graphical user interface (GUI) out-of-the-box. (Essentially, a web app that we build _is_ the graphical user interface to the underlying database!)
+Since databases exist for other _apps_ to use (not for humans to use directly), **the interface to a database is text**. Databases generally don't come with a graphical user interface (GUI) out-of-the-box. (Essentially, the app that we build _is_ the graphical user interface to the underlying database!)
 
 <aside>
 Some databases come with barebones GUIs, but those GUIs are not intended for end users of an app — they are debugging tools for the developers writing the end user app.
 </aside>
 
-Relational databases, the kind of database that powers most apps, use a special language called Structured Query Language (SQL). Any app (whether Ruby, Python, Java, etc) that wants to store data in and retrieve data from a relational database must ultimately output SQL commands and send them to the database for processing.
+Relational databases, the kind of database that powers most apps, use a special language called Structured Query Language (SQL). Any app (whether Ruby, Python, Java, etc) that wants to store data in and retrieve data from a relational database must ultimately output instructions written in SQL (called "queries") and send them to the database for processing.
 
-In particular, we're going to use a very powerful and popular open-source database known as PostgreSQL (or "Postgres", for short). We're first going to see how to work with Postgres directly, but we'll soon move on to working with Postgres through Ruby. That will enable us to integrate permanent storage into our Rails apps – finally! Let's get started.
+In particular, we're going to use a very powerful and popular open-source database known as PostgreSQL (or "Postgres", for short). We're first going to see how to work with Postgres directly, but we'll soon move on to working with Postgres through Ruby. That will enable us to integrate permanent storage into our Rails apps – finally!
 
 - Select all that are true:
-- Structured Query Language (SQL) is only used for Ruby apps.
-  - Not quite, re-read the previous section.
-- SQL is the language of databases.
+- Structured Query Language (SQL) is the language used to interact with relational databases.
   - Yes!
-- Databases are part of a Rails app and can't be used by other types of apps.
-  - Not quite, re-read the previous section.
-- Databases are a piece of software separate from our app.
+- SQL is only used by Ruby apps.
+  - Not quite. Any app written in any language can use SQL to interact with a relational database.
+- The database is a separate app, and our Rails app connects to it when it wants to store or retrieve data.
   - Yes!
-- Our apps provide an interface to interact with a database.
+- The apps we build are essentially a way for users to interact with a database.
   - Yes!
-{: .choose_all #databases_and_sql title="Databases and SQL" points="3" answer="[2,4,5]" }
+{: .choose_all #databases_and_sql title="Databases and SQL" points="3" answer="[1,3,4]" }
 
 ## Working directly with Postgres
 
+<div class="alert alert-info">
 Don't worry about memorizing any of the raw Postgres and SQL commands that you'll see in this section. I just want you to have a sense of how the underlying database works before we graduate to using a wonderful Ruby gem called ActiveRecord that makes it all much easier.
+</div>
 
-First, you have to install the database that you want to use on your computer. Postgres is already installed on our codespaces, so we're set.
+First, you have to install the database that you want to use on your computer. Postgres is already installed on our Codespace, so we're set.
 
 Once Postgres is installed, we launch it from a bash prompt with the `psql` command:
 
-```
+```plaintext
 contact-book main % psql
 
 psql (12.15 (Ubuntu 12.15-0ubuntu0.20.04.1))
@@ -109,6 +111,7 @@ postgres=# \list
 You can scroll through one line at a time with <kbd>return</kbd> or one page at a time with <kbd>space</kbd>. Once you reach the end of the output, you will see `(END)`.
 
 **Then, press <kbd>Q</kbd> to return to whatever prompt you were at before, so that you can issue more commands.**
+{: .fs-5 }
 </div>
 
 We can see that there are already a few databases that exist in the codespace. We'll talk about what these are later.
@@ -149,7 +152,7 @@ postgres=# \list
 (6 rows)
 ```
 
-We now have a new database called "my_contact_book" ready to go. Let's "enter" our new database so that we can start creating data within it. To "enter" a specific database, we use the `\connect` command at the `postgres=#` prompt:
+We now have a new database called "my_contact_book" ready to go. Let's head in to our new database so that we can start creating data within it. To connect to a specific database, we use the `\connect` command at the `postgres=#` prompt:
 
 ```
 postgres=# \connect my_contact_book
@@ -219,7 +222,7 @@ Again, **don't worry about memorizing the SQL we're exploring**; we're not tryin
         - `TIME`: For values with a time part but no date part.
         - `TIMESTAMP`: For values that have both date and time parts.
         - `DECIMAL`: Similar to Ruby `Float`.
-    - `id SERIAL PRIMARY KEY` is how we specify what we want to call the primary key column (the convention is to always call the primary key `id`).
+    - `id SERIAL PRIMARY KEY` is how we specify what we want to call the primary key column (the standard convention is to call the primary key `id`).
         - The `SERIAL` part indicates that we want the database to automatically assign this value to each row for us, starting with `1` and going up from there.
     - `created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP` creates a column called `created_at` of type `TIMESTAMP` and asks the database to automatically assign the current time when a row is inserted into the table.
 
@@ -298,7 +301,7 @@ Notice that values for `id` and `created_at` were automatically assigned. You co
   - Yes!
 - Postgres is a language.
   - Not quite.
-- Postgres is a database software that we interact with using the SQL language.
+- Postgres is a database that we interact with using the SQL language.
   - Yes!
 - Persistent storage allows us to permanently store database records.
   - Yes!
@@ -306,7 +309,7 @@ Notice that values for `id` and `created_at` were automatically assigned. You co
 
 ## Interacting with Postgres from within a Rails app
 
-Everything we saw in the previous section had nothing to do with Ruby or Rails; we were working directly with Postgres through its built-in `psql` program.
+Everything we saw in the previous section had nothing to do with Ruby or Rails; we were working directly with Postgres through its built-in `psql` utility.
 
 Now let's see how we can get our Rails app talking to Postgres, so that we can use Postgres to permanently store information that our users send us in HTTP requests.
 
@@ -364,70 +367,87 @@ my_contact_book=# \dt
 And we can see the table and data that we previously created. **So: we update the `config/database.yml` file to connect Rails to a specific database.**
 
 - The `config/database.yml` file in a Rails app
-- allows us to connect to any Postgres database.
+- allows us to specify which database to connect to.
   - Yes!
 - should never be edited.
-  - Not quite. You should have edited it in the previous step
+  - Not quite. You should have edited it in the previous step.
 {: .choose_best #config_database title="config/database.yml" points="1" answer="1" }
 
 ### The /rails/db GUI
 
-Now that we've connected our database to Rails, we can take advantage of a handy gem: Rails DB. Rails DB provides a GUI to our database, to make it easier for developers (not end users) to see what data is in the database:
+Now that we've connected our database to Rails, we can take advantage of a handy gem: Rails DB. 
+
+Rails DB provides a graphical user interface (GUI) to our database, to make it easier for developers to quickly see all the data in the database. The Rails DB GUI is accessible in our app at the URL `/rails/db`.
 
 - Start your web server with `bin/server`.
 - Open the live app preview. You should see the default Rails homepage, since we haven't defined a root route yet.
-- Manually navigate to the URL `/rails/db`. The route, controller, action, and view for this URL is provided for us by the Rails DB gem. But you should have seen a 404 "no route matches" error! Read on to find out why.
+- Manually navigate to the URL `/rails/db`. You will see a 404 page.
+
+Why is it a 404? The Rails DB gem is installed, and it provides the Route, Controller, Action, and View for this page; but, for security reasons, we need to take a couple of extra steps to enable to gem.
 
 <aside>
-
-As an alternative to manually navigating to `/rails/db`, you can also click the "Database" link from our "Developer Toolbar" on the right side of the page:
+As an alternative to manually navigating to `/rails/db`, you can also click the "Database" link from the "Developer Toolbar" on the right side of the page:
 
 ![Dev toolbar gif](/assets/dev-toolbar.gif)
 
-That 🛠️ icon for the "Dev Toolbar" is in all of our Rails applications to provide some handy links during development.
+You'll see that 🛠️ icon in all of our Rails apps to provide some handy links during development.
 </aside>
 
 #### Add environment variables to access Rails DB
 
-If you tried to visit `/rails/db` just now, you should have seen a 404 "no route matches" error. Since `/rails/db` gives full access to CRUD in our database, we pre-configured our Rails projects to block access without two [secure environment variables for authorizing visitors](https://learn.firstdraft.com/lessons/52-storing-credentials-securely#loading-environment-variables-in-ruby-on-rails) (**Note**, as the guide linked there states, since we are in Rails, you _don't_ need to add the `dotenv` gem and `bundle install`; it's already included out-of-the-box!). You will need to:
+If you tried to visit `/rails/db` just now, you should have seen a 404 "no route matches" error. The GUI located at `/rails/db` exposes to anyone who knows the URL the ability to CRUD our database, which is dangerous! We don't want just anyone to be able to access it.
 
-- Cancel your server with `CTRL` + `C`
-- Create a `.env` file in the root of your project
-- Add the `RAILS_DB_USERNAME` and `RAILS_DB_PASSWORD` environment variables to the `.env` file (copy and paste from below, but _change the \*\*\*\* values to something unique and secure_)
+So, we pre-configured our Rails projects to block access unless two [environment variables](https://learn.firstdraft.com/lessons/52-storing-credentials-securely#loading-environment-variables-in-ruby-on-rails) are present.
+
+Let's add those environment variables now:
+
+- Shut down your web server with <kbd>Ctrl</kbd> + <kbd>C</kbd>.
+- Create a `.env` file in the root of your project.
+- Add two environment variables to the `.env` file:
+  - `RAILS_DB_USERNAME`
+  - `RAILS_DB_PASSWORD`
+- It's up to you to make up values for these variables. You could use `admin` or `dev` for the username, and make up a password.
     
+Ultimately, your `.env` file should look something like this:
+
 ```env
-RAILS_DB_USERNAME=****
-RAILS_DB_PASSWORD=****
+RAILS_DB_USERNAME="admin"
+RAILS_DB_PASSWORD="SuperSecretPasswordThatGivesTotalAccessToYourDatabaseDontUseThisOneMakeUpYourOwn"
 ```
-{: copyable }
 
 - Restart your server with `bin/server`
 - Visit the `/rails/db` page in your live app preview and log in with the username and password you just created.
 
 ![Accessing Rails DB with authorization](/assets/access-rails-db-with-auth.gif)
+{: .bleed-full }
 
-#### Accessing Rails DB after updating the environment variables
+#### Accessing Rails DB
 
-Did you `CTRL` + `C` kill your server, add a `.env` file with the `RAILS_DB_USERNAME` and `RAILS_DB_PASSWORD`, then restart your server? Good! Now when you visit `/rails/db` in your live app preview, you should see a page that looks like this:
+Did you <kbd>Ctrl</kbd> + <kbd>C</kbd> kill your server, add a `.env` file with the `RAILS_DB_USERNAME` and `RAILS_DB_PASSWORD`, then restart your server? Good! Now when you visit `/rails/db` in your live app preview, you should see a page that looks like this:
 
 ![](https://res.cloudinary.com/dmxgp9oq2/image/upload/v1690491792/rails-db-1_s2v9iu.png)
+{: .bleed-full }
 
 ---
 
 In the left sidebar, there's a list of all the tables that are currently in the database. Click "contacts" to see the rows that are currently in that table:
 
 ![](https://res.cloudinary.com/dmxgp9oq2/image/upload/v1690491846/rails-db-2_uanp7x.png)
+{: .bleed-full }
 
 If you click the blue "+ ADD" button on the top-right, Rails DB will provide a basic form that you can use to add more rows:
 
 ![](https://res.cloudinary.com/dmxgp9oq2/image/upload/v1690491901/rails-db-3_ebviou.png)
+{: .bleed-full }
+
+Try adding a few rows to the table using this form.
 
 You can also use the SQL Editor to issue raw SQL commands, or Export the data as a CSV. Pretty neat!
 
-We'll use the Rails DB GUI often to get a quick visual view into our database tables. But, what we really need to do is learn how to CRUD data into our tables using Ruby. Then and only then will we be able to write code to CRUD data from within our actions, which is our end goal!
+We'll use the Rails DB GUI often to get a quick visual view into our database tables. But, what we really need to do is learn how to CRUD data into our tables using Ruby. Then and only then will we be able to write code to CRUD data from within our controllers' actions, which is our end goal!
 
 - Did you check out the `/rails/db` page in your live app preview?
-- Yes, it's really useful.
+- Yes, thank goodness for this visual interface!
   - Good! Thanks, Ruby community for this awesome gem!
 - No, I'm just reading.
   - Do or do not, there is no read!
@@ -441,7 +461,7 @@ Fortunately for us, there's a wonderful Ruby gem called ActiveRecord (written by
 
 For each table that we want to interact with, we will create a Ruby class to act as a translator to that table. This Ruby class will generate SQL, send it to the database, and transform the data sent back into Ruby objects that are easy for us to work with. We refer to these classes  as "models", and we place them in the `app/models` folder.
 
-Let's create a class called `Contact` to deal with the `contacts` table for us.
+Usually, we name the Ruby class in way that matches the table name, to make it easier to know which class represents which table. In this case, let's create a class called `Contact` to deal with the `contacts` table for us.
 
 <div class="alert alert-danger">
 At this point, you should stop copy-pasting and instead start typing out the examples again. We very much want to build muscle memory around using ActiveRecord.
@@ -546,7 +566,7 @@ Voilà! The `Contact` class has now inherited _hundreds_ of methods that will he
 - In Ruby, when we use the `<` operator between two classes it means:
 - The class on the right is greater than the class on the left.
   - Not quite. This operator means "inherit" in the case of classes.
-- Pass all of the methods from the class on the right into the class on the left.
+- The class on the left should inherit all of the methods from the class on the right.
   - Yes!
 {: .choose_best #inheritance_1 title="Inheritance, 1" points="1" answer="2" }
 
@@ -578,9 +598,9 @@ Loading development environment (Rails 7.0.4.3)
 And now it works! We can see from the output that the `.count` method issues some SQL to the database, transforms the result into a Ruby object (an `Integer`, in this case), and then returns it.
 
 - We can use `.count` because:
-- We defined it ourselves in the `Contact` model.
+- We defined it ourselves in the `Contact` class.
   - Not quite.
-- We _inherited_ the method from the `ActiveRecord::Base` model.
+- We _inherited_ the method from the `ActiveRecord::Base` class.
   - Yes!
 {: .choose_best #inheritance_2 title="Inheritance, 2" points="1" answer="2" }
 
@@ -597,7 +617,7 @@ class Zebra < ActiveRecord::Base
 end
 ```
 
-If you `exit`, launch a fresh `rails c` to pick up the new file,
+If you `exit` from the console, launch a fresh `rails c` to pick up the new file,
 and then try `Zebra.count`, you'll see an error:
 
 ```
@@ -631,7 +651,7 @@ We now have two models, `Contact` and `Zebra`, which both interact with the same
 
 This is an example of Rails' philosophy of "convention over configuration". If you follow conventional patterns (like naming your model the same thing as your table), then Rails will by default _just work_ without us having to specify every little thing. But if you want to break from convention, Rails always gives you a way to do that too.
 
-<div class="alert alert-primary bleed-full">
+<div class="alert alert-primary">
 
 **Checkpoint:**
 
@@ -675,6 +695,8 @@ Then, we configured our Rails application to use this database by editing Line 2
 ```yml
 database: my_contact_book
 ```
+
+Then, we added two environment variables, `RAILS_DB_USERNAME` and `RAILS_DB_PASSWORD`, in order to be able to access the handy Rails DB developer tool at `/rails/db`.
 
 Then, we created a model called `Contact`:
 
@@ -746,6 +768,7 @@ If you examine `x` now:
 Observe that the `id` and `created_at` columns have been automatically assigned. The record has been saved to the table! Verify using `Contact.count`, as well as the `/rails/db` GUI:
 
 ![](https://res.cloudinary.com/dmxgp9oq2/image/upload/v1690572226/rails-db-4_oxhoru.png)
+{: .bleed-full }
 
 We've inserted data into our database using Ruby!
 
@@ -946,6 +969,7 @@ end
 Now if we run the task, we get a whole bunch of "Bob Stokes" in our table:
 
 ![](https://res.cloudinary.com/dmxgp9oq2/image/upload/v1690648289/rails-db-6_hodd0e.png)
+{: .bleed-full }
 
 This is better than having just two or three contacts, but it would be even better if they weren't all duplicates. How can we quickly create a bunch of realistic, varied records?
 
@@ -1002,8 +1026,9 @@ end
 Each time we run our task now, 200 contacts with random names will be added:
 
 ![](https://res.cloudinary.com/dmxgp9oq2/image/upload/v1690649276/rails-db-7_ustjom.png)
+{: .bleed-full }
 
-The Faker gem [includes _a lot_ of methods for generating various kinds of values](https://github.com/faker-ruby/faker#generators). Let's flesh out our task by assigning randomized values for all the other columns too, using methods from [the `Faker::Address` class](https://github.com/faker-ruby/faker/blob/main/doc/default/address.md), [the `Faker::Date` class](https://github.com/faker-ruby/faker/blob/main/doc/default/date.md), [the Faker::PhoneNumber class](https://github.com/faker-ruby/faker/blob/main/doc/default/phone_number.md), and [the Faker::Movies::HarryPotter` class](https://github.com/faker-ruby/faker/blob/main/doc/movies/harry_potter.md):
+The Faker gem [includes _a lot_ of methods for generating various kinds of values](https://github.com/faker-ruby/faker#generators). Let's flesh out our task by assigning randomized values for all the other columns too, using methods from [the `Faker::Address` class](https://github.com/faker-ruby/faker/blob/main/doc/default/address.md), [the `Faker::Date` class](https://github.com/faker-ruby/faker/blob/main/doc/default/date.md), [the `Faker::PhoneNumber` class](https://github.com/faker-ruby/faker/blob/main/doc/default/phone_number.md), and [the `Faker::Movies::HarryPotter` class](https://github.com/faker-ruby/faker/blob/main/doc/movies/harry_potter.md):
 
 ```ruby
 # lib/tasks/i_am_lazy.rake
@@ -1045,6 +1070,7 @@ end
 Now if we run the task, we get fully fleshed out sample contacts in our table:
 
 ![](https://res.cloudinary.com/dmxgp9oq2/image/upload/v1690650217/rails-db-8_bwjnvu.png)
+{: .bleed-full }
 
 One last detail: it might be nice to "reset" the table by deleting all of the records before creating new, randomized records. In order to do that, we can use the somewhat dangerous `destroy_all` method:
 
@@ -1092,6 +1118,7 @@ The `destroy_all` method will delete _all_ of the records from a table, so be ve
 If you run the task now, you should see only 202 records in your table; the earlier ones we created are all gone. Also, notice that the IDs do not get reset; when a record is deleted, its ID number is "retired":
 
 ![](https://res.cloudinary.com/dmxgp9oq2/image/upload/v1690651037/rails-db-9_eu28me.png)
+{: .bleed-full }
 
 Great! Now that we have a bunch of realistic records in our table, we're in good shape to practice searching, counting, sorting, etc.
 
@@ -1133,7 +1160,7 @@ We can retrieve all of the records in the table with the `.all` method:
 
 Notice the class of the return value: `Contact::ActiveRecord_Relation`.
 
-<div class="alert alert-danger">
+<div class="alert alert-info">
 An ActiveRecord Relation is the class that represents _a set of multiple records_ from the table (hence the name "relation").
 </div>
 
@@ -1165,7 +1192,7 @@ For example, let's save the relation containing all the records to a variable `x
 
 (Your sample contacts will be different than mine, since we generated them with Faker.)
 
-<div class="alert alert-danger">
+<div class="alert alert-info">
 Each element within the relation is an instance of the `Contact` class that represents one record.
 </div>
 
@@ -1274,7 +1301,7 @@ Contact.all.order({ :last_name => :asc, :first_name => :asc, :date_of_birth => :
 This would first order by last name, then break ties using first name, then break ties using date of birth.
 
 - I am experimenting with these cool ActiveRecord methods in the `rails console`:
-- I'm just reading.
+- No, I'm just reading.
   - Oh no! Do or do not, there is no read.
 - Yes.
   - Good!
@@ -1321,7 +1348,7 @@ x.count
 
 #### where always returns a relation, never a single row
 
-<div class="alert alert-danger">
+<div class="alert alert-info fs-4 fw-bold">
 The return value from `.where` is always a Relation, regardless of how many results there are.
 </div>
 
