@@ -381,9 +381,7 @@ Rails DB provides a graphical user interface (GUI) to our database, to make it e
 
 - Start your web server with `bin/server`.
 - Open the live app preview. You should see the default Rails homepage, since we haven't defined a root route yet.
-- Manually navigate to the URL `/rails/db`. You will see a 404 page.
-
-Why is it a 404? The Rails DB gem is installed, and it provides the Route, Controller, Action, and View for this page; but, for security reasons, we need to take a couple of extra steps to enable to gem.
+- Manually navigate to the URL `/rails/db`. The route, controller, action, and view for this URL is provided for us by the Rails DB gem.
 
 <aside>
 As an alternative to manually navigating to `/rails/db`, you can also click the "Database" link from the "Developer Toolbar" on the right side of the page:
@@ -393,37 +391,7 @@ As an alternative to manually navigating to `/rails/db`, you can also click the 
 You'll see that 🛠️ icon in all of our Rails apps to provide some handy links during development.
 </aside>
 
-#### Add environment variables to access Rails DB
-
-If you tried to visit `/rails/db` just now, you should have seen a 404 "no route matches" error. The GUI located at `/rails/db` exposes to anyone who knows the URL the ability to CRUD our database, which is dangerous! We don't want just anyone to be able to access it.
-
-So, we pre-configured our Rails projects to block access unless two [environment variables](https://learn.firstdraft.com/lessons/52-storing-credentials-securely#loading-environment-variables-in-ruby-on-rails) are present.
-
-Let's add those environment variables now:
-
-- Shut down your web server with <kbd>Ctrl</kbd> + <kbd>C</kbd>.
-- Create a `.env` file in the root of your project.
-- Add two environment variables to the `.env` file:
-  - `RAILS_DB_USERNAME`
-  - `RAILS_DB_PASSWORD`
-- It's up to you to make up values for these variables. You could use `admin` or `dev` for the username, and make up a password.
-    
-Ultimately, your `.env` file should look something like this:
-
-```env
-RAILS_DB_USERNAME="admin"
-RAILS_DB_PASSWORD="SuperSecretPasswordThatGivesTotalAccessToYourDatabaseDontUseThisOneMakeUpYourOwn"
-```
-
-- Restart your server with `bin/server`
-- Visit the `/rails/db` page in your live app preview and log in with the username and password you just created.
-
-![Accessing Rails DB with authorization](/assets/access-rails-db-with-auth.gif)
-{: .bleed-full }
-
-#### Accessing Rails DB
-
-Did you <kbd>Ctrl</kbd> + <kbd>C</kbd> kill your server, add a `.env` file with the `RAILS_DB_USERNAME` and `RAILS_DB_PASSWORD`, then restart your server? Good! Now when you visit `/rails/db` in your live app preview, you should see a page that looks like this:
+You should see a page that looks like this:
 
 ![](https://res.cloudinary.com/dmxgp9oq2/image/upload/v1690491792/rails-db-1_s2v9iu.png)
 {: .bleed-full }
@@ -696,7 +664,7 @@ Then, we configured our Rails application to use this database by editing Line 2
 database: my_contact_book
 ```
 
-Then, we added two environment variables, `RAILS_DB_USERNAME` and `RAILS_DB_PASSWORD`, in order to be able to access the handy Rails DB developer tool at `/rails/db`.
+Then, we accessed the handy Rails DB developer tool at `/rails/db`.
 
 Then, we created a model called `Contact`:
 
