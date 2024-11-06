@@ -1282,7 +1282,7 @@ This would first order by last name, then break ties using first name, then brea
 `.reverse_order` reverses the ordering of a collection. Not particularly common, since you can use `:asc` and `:desc` to specify the direction you want explicitly, but there it is:
 
 ```ruby
-Contact.order(:first_name).reverse_order
+Contact.all.order(:first_name).reverse_order
 ```
 
 ### where
