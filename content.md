@@ -28,7 +28,7 @@ Importantly, we'll learn how to do this directly within the database and also _i
 
 ## Setup
 
-<div class="alert alert-primary">
+<div class="alert alert-info">
 
 The GitHub repository associated with this lesson is just for you to experiment with a database. There are also quiz questions throughout this lesson. You will need to answer those questions to check your understanding and get a grade.
 </div>
@@ -619,7 +619,7 @@ We now have two models, `Contact` and `Zebra`, which both interact with the same
 
 This is an example of Rails' philosophy of "convention over configuration". If you follow conventional patterns (like naming your model the same thing as your table), then Rails will by default _just work_ without us having to specify every little thing. But if you want to break from convention, Rails always gives you a way to do that too.
 
-<div class="alert alert-primary">
+<div class="alert alert-info">
 
 **Checkpoint:**
 
@@ -1094,7 +1094,7 @@ Having realistic sample data is incredibly helpful while designing and developin
 
 In most of our projects going forward, I will include a sample data rake task for you. On your own projects, you'll have to write the sample data task for yourself!
 
-<div class="alert alert-primary">
+<div class="alert alert-info">
 
 **Checkpoint:**
 
@@ -1327,7 +1327,7 @@ x = Contact.where({ :id => 2 })
 x.first_name
 ```
 
-<div class="alert alert-primary">
+<div class="alert alert-info">
 The above code will only return something if a record with the `id` of 2 _exists in your database_. If you get an error, you could run:
 
 ```ruby
@@ -1399,7 +1399,7 @@ Contact.where({ :last_name => "Mouse" }).where.not({ :first_name => "Mickey" })
 
 You tack `where.not` on to a collection and it accepts all the same arguments as `.where`, but the result set is all of the records in the original collection _except_ the ones that match the criteria.
 
-<div class="alert alert-primary">
+<div class="alert alert-info">
 
 #### `.where` is everything
 
