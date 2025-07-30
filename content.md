@@ -932,7 +932,7 @@ There's a gem for that: the Faker gem. I use the Faker gem in almost every proje
 
 ```
 contact-book main % rails c
-Loading development environment (Rails 7.0.4.3)
+Loading development environment (Rails 8.0.2)
 [1] pry(main)> Faker::Name.first_name
 => "Neal"
 [2] pry(main)> Faker::Name.first_name
@@ -949,9 +949,7 @@ Loading development environment (Rails 7.0.4.3)
 
 We see that the `Faker::Name.first_name` is sort of like `rand`, but it generates random names rather than numbers. Let's upgrade our `sample_contacts` task with `Faker::Name.first_name` and `Faker::Name.last_name`:
 
-```ruby
-# lib/tasks/i_am_lazy.rake
-
+```ruby{4:(20-41),5:(19-39)}
 task(:sample_contacts => :environment) do
   200.times do
     x = Contact.new
@@ -973,6 +971,7 @@ task(:sample_contacts => :environment) do
   x.save
 end
 ```
+{: filename="lib/tasks/i_am_lazy.rake" }
 
 Each time we run our task now, 200 contacts with random names will be added:
 
