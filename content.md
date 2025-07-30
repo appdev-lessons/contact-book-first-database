@@ -980,9 +980,7 @@ Each time we run our task now, 200 contacts with random names will be added:
 
 The Faker gem [includes _a lot_ of methods for generating various kinds of values](https://github.com/faker-ruby/faker#generators). Let's flesh out our task by assigning randomized values for all the other columns too, using methods from [the `Faker::Address` class](https://github.com/faker-ruby/faker/blob/main/doc/default/address.md), [the `Faker::Date` class](https://github.com/faker-ruby/faker/blob/main/doc/default/date.md), [the `Faker::PhoneNumber` class](https://github.com/faker-ruby/faker/blob/main/doc/default/phone_number.md), and [the `Faker::Movies::HarryPotter` class](https://github.com/faker-ruby/faker/blob/main/doc/movies/harry_potter.md):
 
-```ruby
-# lib/tasks/i_am_lazy.rake
-
+```ruby{6-13}
 task(:sample_contacts => :environment) do
   200.times do
     x = Contact.new
@@ -1014,6 +1012,7 @@ task(:sample_contacts => :environment) do
   x.save
 end
 ```
+{: filename="lib/tasks/i_am_lazy.rake" }
 
 (I couldn't find a perfect method in Faker for generating random, realistic notes for each contact, so I went with a Harry Potter quote instead. Feel free to experiment with something different!)
 
