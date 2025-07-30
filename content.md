@@ -494,11 +494,11 @@ Rails includes a very handy tool that saves us the trouble of `require`ing all o
 
 ```
 contact-book main % rails console
-Loading development environment (Rails 7.0.4.3)
+Loading development environment (Rails 8.0.2)
 [1] pry(main)>
 ```
 
-Notice the new prompt: `[1] pry(main)> `, and also notice that it said "Loading development environment (Rails 7.0.4.3)".
+Notice the new prompt: `[1] pry(main)> `, and also notice that it said "Loading development environment (Rails 8.0.2)".
 
 The Rails Console is very similar to IRB, but _it automatically `require`s all of the files and gems in the Rails app_. This includes gems like `activesupport`, `json`, etc, in addition to all of our own classes from the `app/models/` folder. This is a huge time saver when we're experimenting!
 
@@ -506,7 +506,7 @@ So we can right away start using `Contact` in `rails console` without having to 
 
 ```
 contact-book main % rails console
-Loading development environment (Rails 7.0.4.3)
+Loading development environment (Rails 8.0.2)
 [1] pry(main)> Contact.new
 => #<Contact:0x00007f5174607ee0>
 ```
