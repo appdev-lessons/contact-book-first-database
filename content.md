@@ -135,7 +135,7 @@ CREATE DATABASE
 
 And if you try to `\list` the databases again, you should now see our brand new one on the list:
 
-```
+```{6}
 postgres=# \list
 
                                          List of databases
