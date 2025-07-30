@@ -1023,9 +1023,7 @@ Now if we run the task, we get fully fleshed out sample contacts in our table:
 
 One last detail: it might be nice to "reset" the table by deleting all of the records before creating new, randomized records. In order to do that, we can use the somewhat dangerous `destroy_all` method:
 
-```ruby
-# lib/tasks/i_am_lazy.rake
-
+```ruby{2-4}
 task(:sample_contacts => :environment) do
   if Rails.env.development?
     Contact.destroy_all
@@ -1061,6 +1059,7 @@ task(:sample_contacts => :environment) do
   x.save
 end
 ```
+{: filename="lib/tasks/i_am_lazy.rake" }
 
 The `destroy_all` method will delete _all_ of the records from a table, so be very careful with it! As you can see, I wrapped it within an `if` statement so that it will only happen in the development environment (our codespace), not the production environment (e.g. our server on Render).
 
