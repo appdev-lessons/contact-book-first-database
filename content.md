@@ -79,7 +79,7 @@ Once Postgres is installed, we launch it from a bash prompt with the `psql` comm
 ```plaintext
 contact-book main % psql
 
-psql (12.15 (Ubuntu 12.15-0ubuntu0.20.04.1))
+psql (16.9 (Ubuntu 16.9-1.pgdg20.04+1))
 Type "help" for help.
 
 postgres=#
@@ -93,15 +93,15 @@ Let's list what databases currently exist in this installation of Postgres on th
 postgres=# \list
 
                                          List of databases
-            Name            |  Owner  | Encoding |   Collate   |    Ctype    |  Access privileges
-----------------------------+---------+----------+-------------+-------------+---------------------
- postgres                   | student | UTF8     | en_US.UTF-8 | en_US.UTF-8 |
- rails_template_development | student | UTF8     | en_US.UTF-8 | en_US.UTF-8 |
- rails_template_test        | student | UTF8     | en_US.UTF-8 | en_US.UTF-8 |
- template0                  | student | UTF8     | en_US.UTF-8 | en_US.UTF-8 | =c/student         +
-                            |         |          |             |             | student=CTc/student
- template1                  | student | UTF8     | en_US.UTF-8 | en_US.UTF-8 | =c/student         +
-                            |         |          |             |             | student=CTc/student
+            Name              |  Owner  | Encoding |   Collate   |    Ctype    |  Access privileges
+------------------------------+---------+----------+-------------+-------------+---------------------
+ postgres                     | student | UTF8     | en_US.UTF-8 | en_US.UTF-8 |
+ rails_8_template_development | student | UTF8     | en_US.UTF-8 | en_US.UTF-8 |
+ rails_8_template_test        | student | UTF8     | en_US.UTF-8 | en_US.UTF-8 |
+ template0                    | student | UTF8     | en_US.UTF-8 | en_US.UTF-8 | =c/student         +
+                              |         |          |             |             | student=CTc/student
+ template1                    | student | UTF8     | en_US.UTF-8 | en_US.UTF-8 | =c/student         +
+                              |         |          |             |             | student=CTc/student
 (5 rows)
 ```
 
@@ -139,17 +139,17 @@ And if you try to `\list` the databases again, you should now see our brand new 
 postgres=# \list
 
                                          List of databases
-            Name            |  Owner  | Encoding |   Collate   |    Ctype    |  Access privileges
-----------------------------+---------+----------+-------------+-------------+---------------------
- my_contact_book            | student | UTF8     | en_US.UTF-8 | en_US.UTF-8 |
- postgres                   | student | UTF8     | en_US.UTF-8 | en_US.UTF-8 |
- rails_template_development | student | UTF8     | en_US.UTF-8 | en_US.UTF-8 |
- rails_template_test        | student | UTF8     | en_US.UTF-8 | en_US.UTF-8 |
- template0                  | student | UTF8     | en_US.UTF-8 | en_US.UTF-8 | =c/student         +
-                            |         |          |             |             | student=CTc/student
- template1                  | student | UTF8     | en_US.UTF-8 | en_US.UTF-8 | =c/student         +
-                            |         |          |             |             | student=CTc/student
-(6 rows)
+            Name              |  Owner  | Encoding |   Collate   |    Ctype    |  Access privileges
+------------------------------+---------+----------+-------------+-------------+---------------------
+ my_contact_book              | student | UTF8     | en_US.UTF-8 | en_US.UTF-8 |
+ postgres                     | student | UTF8     | en_US.UTF-8 | en_US.UTF-8 |
+ rails_8_template_development | student | UTF8     | en_US.UTF-8 | en_US.UTF-8 |
+ rails_8_template_test        | student | UTF8     | en_US.UTF-8 | en_US.UTF-8 |
+ template0                    | student | UTF8     | en_US.UTF-8 | en_US.UTF-8 | =c/student         +
+                              |         |          |             |             | student=CTc/student
+ template1                    | student | UTF8     | en_US.UTF-8 | en_US.UTF-8 | =c/student         +
+                              |         |          |             |             | student=CTc/student
+(5 rows)
 ```
 
 We now have a new database called "my_contact_book" ready to go. Let's head in to our new database so that we can start creating data within it. To connect to a specific database, we use the `\connect` command at the `postgres=#` prompt:
@@ -317,7 +317,7 @@ Now let's see how we can get our Rails app talking to Postgres, so that we can u
 
 All Rails apps come out-of-the-box with a file called `config/database.yml`. `.yml` is the extension for a markup language called "Yet Another Markup Language". It's supposed to be easy to type, sort of like Markdown; but highly structured, sort of like JSON. `.yml` files are often used for configuration and settings.
 
-Among other things, `config/database.yml` is how we tell Rails which database we want it to connect to. Currently, on Line 26, the database is set to `rails_template_development` — this is a default name that was automatically generated when I first created this blank Rails app for us.
+Among other things, `config/database.yml` is how we tell Rails which database we want it to connect to. Currently, on Line 26, the database is set to `rails_8_template_development` — this is a default name that was automatically generated when I first created this blank Rails app for us.
 
 Let's ask Rails to connect to the database that we created instead. Edit Line 26 of `config/database.yml` to be:
 
@@ -325,18 +325,19 @@ Let's ask Rails to connect to the database that we created instead. Edit Line 26
 # ...
 
 development:
-  adapter: sqlite3
-  <<: *default
+  primary: &primary_development
+    <<: *default
   database: my_contact_book
 
 # ...
 ```
+{: filename="config/database.yml" }
 
 In your terminal, quit out of `psql` with the `\q` command, or open a new terminal tab; and at a bash prompt, run the command `rails dbconsole`. You should see output like this:
 
 ```
 contact-book main % rails dbconsole
-psql (12.15 (Ubuntu 12.15-0ubuntu0.20.04.1))
+psql (16.9 (Ubuntu 16.9-1.pgdg20.04+1))
 Type "help" for help.
 
 my_contact_book=#
@@ -374,7 +375,7 @@ Now that we've connected our database to Rails, we can take advantage of a handy
 
 Rails DB provides a graphical user interface (GUI) to our database, to make it easier for developers to quickly see all the data in the database. The Rails DB GUI is accessible in our app at the URL `/rails/db`.
 
-- Start your web server with `bin/server`.
+- Start your web server with `bin/server`. **You can do this in a new terminal tab or by quitting the psql environment with `\q`.**
 - Open the live app preview. You should see the default Rails homepage, since we haven't defined a root route yet.
 - Manually navigate to the URL `/rails/db`. The route, controller, action, and view for this URL is provided for us by the Rails DB gem.
 
@@ -433,11 +434,10 @@ At this point, you should stop copy-pasting and instead start typing out the exa
 Create a new file called `contact.rb` in the `app/models/` folder in your codespace, and fill it in with the following:
 
 ```ruby
-# app/models/contact.rb
-
 class Contact
 end
 ```
+{: filename="app/models/contact.rb" }
 
 In the code above we:
 
