@@ -517,12 +517,11 @@ From now on, when we want a quick way of executing one line of Ruby at a time, w
 
 As of now, the `Contact` class isn't very interesting. But let's give it superpowers by inheriting from a class called `ActiveRecord::Base`:
 
-```ruby{3:(15-34)}
-# app/models/contact.rb
-
+```ruby{1:(15-34)}
 class Contact < ActiveRecord::Base
 end
 ```
+{: filename="app/models/contact.rb" }
 
 Voilà! The `Contact` class has now inherited _hundreds_ of methods that will help us CRUD data in the `contacts` table.
 
@@ -552,7 +551,7 @@ So `exit`, start a fresh `rails c` session, and then try `Contact.count` again:
 ```
 [3] pry(main)> exit
 contact-book main % rails c
-Loading development environment (Rails 7.0.4.3)
+Loading development environment (Rails 8.0.2)
 [1] pry(main)> Contact.count
   Contact Count (14.6ms)  SELECT COUNT(*) FROM "contacts"
 => 1
@@ -574,18 +573,18 @@ You might be wondering, "How did the `Contact.count` method know to use the tabl
 ActiveRecord automatically _infers_ the table name that we want to interact with based on the name we picked for the model class. Try creating a second model called `Zebra`:
 
 ```ruby
-# app/models/zebra.rb
-
 class Zebra < ActiveRecord::Base
 end
 ```
+{: filename="app/models/zebra.rb" }
+
 
 If you `exit` from the console, launch a fresh `rails c` to pick up the new file,
 and then try `Zebra.count`, you'll see an error:
 
 ```
 contact-book main % rails c
-Loading development environment (Rails 7.0.4.3)
+Loading development environment (Rails 8.0.2)
 [1] pry(main)> Zebra.count
 ActiveRecord::StatementInvalid: PG::UndefinedTable: ERROR:  relation "zebras" does not exist
 ```
@@ -594,13 +593,12 @@ The error "relation 'zebras' does not exist" makes sense, since we didn't create
 
 If we wanted to, we could specify the table name with the `self.table_name` method:
 
-```ruby
-# app/models/zebra.rb
-
+```ruby{2}
 class Zebra < ActiveRecord::Base
   self.table_name = "contacts"
 end
 ```
+{: filename="app/models/zebra.rb" }
 
 Now if you `exit`, `rails c`, and try again, it should work:
 
@@ -664,18 +662,14 @@ Then, we accessed the handy Rails DB developer tool at `/rails/db`.
 Then, we created a model called `Contact`:
 
 ```ruby
-# app/models/contact.rb
-
 class Contact < ActiveRecord::Base
 end
 ```
+{: filename="app/models/contact.rb" }
 
 (We also created a second model called `Zebra`, but that was just for experimentation.)
 
 And that's it!
-
-- [Here you can see the changes that I've made so far.](https://github.com/raghubetina/contact-book/commit/5f1cd87babdbde964d822c4007eff8355b6de1e2)
-- [Here you can browse my entire codebase at this point in time.](https://github.com/raghubetina/contact-book/tree/5f1cd87babdbde964d822c4007eff8355b6de1e2)
 
 </div>
 
@@ -784,12 +778,11 @@ Rails provides a place to put Ruby scripts: the `lib/tasks` folders. Let's creat
 Within the file, type the following code:
 
 ```ruby
-# lib/tasks/i_am_lazy.rake
-
 task(:howdy) do
   pp "Hello!"
 end
 ```
+{: filename="lib/tasks/i_am_lazy.rake" }
 
 Then, at a bash prompt, run the command `rake howdy`:
 
@@ -807,9 +800,7 @@ What just happened?
 
 We can add multiple tasks to the same file:
 
-```ruby
-# lib/tasks/i_am_lazy.rake
-
+```ruby{5-7}
 task(:howdy) do
   pp "Hello!"
 end
@@ -818,6 +809,7 @@ task(:world) do
   pp "World!"
 end
 ```
+{: filename="lib/tasks/i_am_lazy.rake" }
 
 And the `rake` command will find it:
 
@@ -843,8 +835,6 @@ Let's write a task called "sample_contacts" that will make it easier to populate
 We'll begin by writing some Ruby that will automate creating just one record, using the same Ruby that we proved works in the `rails console`:
 
 ```ruby
-# lib/tasks/i_am_lazy.rake
-
 task(:sample_contacts) do
   x = Contact.new
   x.first_name = "Minnie"
@@ -853,6 +843,7 @@ task(:sample_contacts) do
   x.save
 end
 ```
+{: filename="lib/tasks/i_am_lazy.rake" }
 
 If we run this task right now with `rake sample_contacts`, we'll see an error because we didn't `require` the `Contact` class:
 
@@ -864,9 +855,7 @@ NameError: uninitialized constant Contact
 
 Happily, there's a built in way to automatically `require` all of our models, all of the gems in our `Gemfile`, etc. We just have to add `=> :environment` after the task's name:
 
-```ruby
-# lib/tasks/i_am_lazy.rake
-
+```ruby{1:(22-37)}
 task(:sample_contacts => :environment) do
   x = Contact.new
   x.first_name = "Minnie"
@@ -875,14 +864,13 @@ task(:sample_contacts => :environment) do
   x.save
 end
 ```
+{: filename="lib/tasks/i_am_lazy.rake" }
 
 The task should now work. Each time we run `rake sample_contacts`, a new record for Minnie Mouse will be inserted.
 
 Let's add Mickey Mouse to the task:
 
-```ruby
-# lib/tasks/i_am_lazy.rake
-
+```ruby{8-12}
 task(:sample_contacts => :environment) do
   x = Contact.new
   x.first_name = "Minnie"
@@ -897,6 +885,7 @@ task(:sample_contacts => :environment) do
   x.save
 end
 ```
+{: filename="lib/tasks/i_am_lazy.rake" }
 
 Since I've already saved the contact for Minnie to the database, it's okay to re-use the variable `x` for another contact. I can always look up the contact for Minnie in the database later if I need it.
 
@@ -904,9 +893,7 @@ Since I've already saved the contact for Minnie to the database, it's okay to re
 
 We can add a loop to our code to create a bunch of records all at once:
 
-```ruby
-# lib/tasks/i_am_lazy.rake
-
+```ruby{2-7}
 task(:sample_contacts => :environment) do
   200.times do
     x = Contact.new
@@ -928,6 +915,7 @@ task(:sample_contacts => :environment) do
   x.save
 end
 ```
+{: filename="lib/tasks/i_am_lazy.rake" }
 
 Now if we run the task, we get a whole bunch of "Bob Stokes" in our table:
 
