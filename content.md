@@ -1074,14 +1074,6 @@ Having realistic sample data is incredibly helpful while designing and developin
 
 In most of our projects going forward, I will include a sample data rake task for you. On your own projects, you'll have to write the sample data task for yourself!
 
-<div class="alert alert-info">
-
-**Checkpoint:**
-
-- [Here you can see the changes that I've made since the last commit.](https://github.com/raghubetina/contact-book/commit/cf33dce26106a2368ce9c91fb155196adf31ebc1)
-- [Here you can browse my entire codebase at this point in time.](https://github.com/raghubetina/contact-book/tree/cf33dce26106a2368ce9c91fb155196adf31ebc1)
-</div>
-
 ### Retrieving existing records
 
 Now that we have shiny, realistic sample data to play with, let's open a `rails console` session and learn how to work with our records using our model.
