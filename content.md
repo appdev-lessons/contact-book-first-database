@@ -178,6 +178,8 @@ We're going to be seeing the term "relation" a lot moving forward — look out 
 
 It makes sense that our brand new database doesn't contain any relations yet. Let's create a table called "contacts" by issuing some SQL at the `my_contact_book=# ` prompt:
 
+(**Use the copy button on the right side**, we don't want any typos and we don't need to practice this SQL syntax.)
+
 ```sql
 CREATE TABLE contacts (
   id SERIAL PRIMARY KEY,
