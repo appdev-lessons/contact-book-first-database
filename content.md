@@ -1380,7 +1380,7 @@ You tack `where.not` on to a collection and it accepts all the same arguments as
 **Everything from looking up a movie's director to putting together a feed in a social network ultimately boils down to `.where`s and `.each`s.** I can't emphasize the importance of `.where` enough. Ask lots of questions.
 </div>
 
-### UPDATE
+## UPDATE
 
 To update a row, first you need to locate it:
 
