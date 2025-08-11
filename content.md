@@ -919,7 +919,14 @@ end
 ```
 {: filename="lib/tasks/i_am_lazy.rake" }
 
-Now if we run the task, we get a whole bunch of "Bob Stokes" in our table:
+Now if we run the task at the terminal again:
+
+```
+contact-book main % rake sample_contacts
+contact-book main %
+```
+
+we get a whole bunch of "Bob Stokes" in our table:
 
 ![](https://res.cloudinary.com/dmxgp9oq2/image/upload/v1690648289/rails-db-6_hodd0e.png)
 {: .bleed-full }
@@ -975,7 +982,7 @@ end
 ```
 {: filename="lib/tasks/i_am_lazy.rake" }
 
-Each time we run our task now, 200 contacts with random names will be added:
+Each time we run our task now (by running `rake sample_contacts` at the terminal), 200 contacts with random names will be added:
 
 ![](https://res.cloudinary.com/dmxgp9oq2/image/upload/v1690649276/rails-db-7_ustjom.png)
 {: .bleed-full }
@@ -1065,7 +1072,7 @@ end
 
 The `destroy_all` method will delete _all_ of the records from a table, so be very careful with it! As you can see, I wrapped it within an `if` statement so that it will only happen in the development environment (our codespace), not the production environment (e.g. our server on Render).
 
-If you run the task now, you should see only 202 records in your table; the earlier ones we created are all gone. Also, notice that the IDs do not get reset; when a record is deleted, its ID number is "retired":
+If you run the `rake sample_contacts` task now, you should see only 202 records in your table; the earlier ones we created are all gone. Also, notice that the IDs do not get reset; when a record is deleted, its ID number is "retired":
 
 ![](https://res.cloudinary.com/dmxgp9oq2/image/upload/v1690651037/rails-db-9_eu28me.png)
 {: .bleed-full }
