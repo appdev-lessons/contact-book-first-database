@@ -362,7 +362,7 @@ postgres://student:postgres@localhost:5432/my_contact_book
 ```
 {: copyable }
 
-Note the key part of the connection string that I highlighted there. In the previous steps, we use `psql` to create a `my_contact_book` database. Therefore, we can connect our Rails app to that database over the internal network defined by the connection string with our database name appended just after the last `/`.
+Note the key part of the connection string that I highlighted there. In the previous steps, we used `psql` to create a `my_contact_book` database. Therefore, we can connect our Rails app to that database over the internal network defined by the connection string with our database name appended just after the last `/`.
 
 <aside>
 
