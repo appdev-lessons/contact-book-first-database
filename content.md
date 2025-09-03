@@ -95,9 +95,9 @@ postgres=# \list
                                          List of databases
             Name              |  Owner  | Encoding |   Collate   |    Ctype    |  Access privileges
 ------------------------------+---------+----------+-------------+-------------+---------------------
+ contact_book_development     | student | UTF8     | en_US.UTF-8 | en_US.UTF-8 |
+ contact_book_test            | student | UTF8     | en_US.UTF-8 | en_US.UTF-8 |
  postgres                     | student | UTF8     | en_US.UTF-8 | en_US.UTF-8 |
- rails_8_template_development | student | UTF8     | en_US.UTF-8 | en_US.UTF-8 |
- rails_8_template_test        | student | UTF8     | en_US.UTF-8 | en_US.UTF-8 |
  template0                    | student | UTF8     | en_US.UTF-8 | en_US.UTF-8 | =c/student         +
                               |         |          |             |             | student=CTc/student
  template1                    | student | UTF8     | en_US.UTF-8 | en_US.UTF-8 | =c/student         +
@@ -135,16 +135,16 @@ CREATE DATABASE
 
 And if you try to `\list` the databases again, you should now see our brand new one on the list:
 
-```{6}
+```{8}
 postgres=# \list
 
                                          List of databases
             Name              |  Owner  | Encoding |   Collate   |    Ctype    |  Access privileges
 ------------------------------+---------+----------+-------------+-------------+---------------------
+ contact_book_development     | student | UTF8     | en_US.UTF-8 | en_US.UTF-8 |
+ contact_book_test            | student | UTF8     | en_US.UTF-8 | en_US.UTF-8 |
  my_contact_book              | student | UTF8     | en_US.UTF-8 | en_US.UTF-8 |
  postgres                     | student | UTF8     | en_US.UTF-8 | en_US.UTF-8 |
- rails_8_template_development | student | UTF8     | en_US.UTF-8 | en_US.UTF-8 |
- rails_8_template_test        | student | UTF8     | en_US.UTF-8 | en_US.UTF-8 |
  template0                    | student | UTF8     | en_US.UTF-8 | en_US.UTF-8 | =c/student         +
                               |         |          |             |             | student=CTc/student
  template1                    | student | UTF8     | en_US.UTF-8 | en_US.UTF-8 | =c/student         +
