@@ -319,20 +319,57 @@ Now let's see how we can get our Rails app talking to Postgres, so that we can u
 
 All Rails apps come out-of-the-box with a file called `config/database.yml`. `.yml` is the extension for a markup language called "Yet Another Markup Language". It's supposed to be easy to type, sort of like Markdown; but highly structured, sort of like JSON. `.yml` files are often used for configuration and settings.
 
-Among other things, `config/database.yml` is how we tell Rails which database we want it to connect to. Currently, on Line 25, the database is set to `rails_8_template_development` — this is a default name that was automatically generated when I first created this blank Rails app for us.
+Among other things, `config/database.yml` is how we tell Rails which database we want it to connect to. Currently, on Line 25, the database is set to:
 
-Let's ask Rails to connect to the database that we created instead. Edit Line 25 of `config/database.yml` to be:
-
-```yml{5:(13-27)}
+```yml{5:(8-66)}
 # ...
 
 development:
   <<: *default
-  database: my_contact_book
+  url: <%= ENV.fetch("DATABASE_URL").gsub("?", "_development?") %>
 
 # ...
 ```
 {: filename="config/database.yml" }
+
+This is an environment variable, just like we saw previously with our API tokens. Only this time, the environment variable is pointing to an internal network defined by the `DATABASE_URL` key. That `DATABASE_URL` looks something like this:
+
+```
+postgres://[USERNAME]:[PASSWORD]@[HOSTNAME]/[DATABASE_NAME]
+```
+
+This is the standard format for any internal or external Postgres database that we might want to connect to our app.
+
+Let's ask Rails to connect to the database that we created instead of the default one provided in the `DATABASE_URL` environment variable.
+
+Edit Line 25 of `config/database.yml` to be:
+
+```yml{5:(8-65)}
+# ...
+
+development:
+  <<: *default
+  url: postgres://student:postgres@localhost:5432/my_contact_book
+
+# ...
+```
+{: filename="config/database.yml" }
+
+Here's a copyable snippet to make that a bit easier:
+
+```{1:(44-58)}
+postgres://student:postgres@localhost:5432/my_contact_book
+```
+{: copyable }
+
+Note the key part of the connection string that I highlighted there. In the previous steps, we use `psql` to create a `my_contact_book` database. Therefore, we can connect our Rails app to that database over the internal network defined by the connection string with our database name appended just after the last `/`.
+
+<aside>
+
+These edits to `config/database.yml` aren't changes we'd typically make in our apps or future projects, we're just doing it here to highlight the connection between Postgres databases and Rails. Postgres (the database) is running externally from our Rails app, and needs to be explicitly connected. Rails usually handles all of this for us without needing to make any manual edits.
+</aside>
+
+Okay, with that change out of the way:
 
 In your terminal, quit out of `psql` with the `\q` command, or open a new terminal tab; and at a bash prompt, run the command `rails dbconsole`. You should see output like this:
 
@@ -364,10 +401,10 @@ my_contact_book=# \dt
 And we can see the table and data that we previously created. **So: we update the `config/database.yml` file to connect Rails to a specific database.**
 
 - The `config/database.yml` file in a Rails app
-- allows us to specify which database to connect to.
+- specifies which database to connect to.
   - Yes!
-- should never be edited.
-  - Not quite. You should have edited it in the previous step.
+- is not useful and can be deleted without any problems.
+  - Not quite. Or at least, only if your app wasn't configured to connect to any database.
 {: .choose_best #config_database title="config/database.yml" points="1" answer="1" }
 
 ### The /rails/db GUI
@@ -655,7 +692,7 @@ CREATE TABLE contacts (
 Then, we configured our Rails application to use this database by editing Line 25 of `config/database.yml` to:
 
 ```yml
-  database: my_contact_book
+  url: postgres://student:postgres@localhost:5432/my_contact_book
 ```
 
 Then, we accessed the handy Rails DB developer tool at `/rails/db`.
