@@ -26,14 +26,18 @@ Along the way, we'll learn how to:
 
 Importantly, we'll learn how to do this directly within the database and also _in Ruby_, which will allow us to integrate the database into our Ruby apps. Let's get started.
 
-## Setup
+## Set up codespace
 
 <div class="alert alert-info">
 
 The GitHub repository associated with this lesson is just for you to experiment with a database. There are also quiz questions throughout this lesson. You will need to answer those questions to check your understanding and get a grade.
 </div>
 
-[Fork this repository](https://github.com/appdev-projects/contact-book/fork) and create a codespace. There are no automated tests in this project.
+Click this button to gain access to fork the repo:
+
+LTI{Load Contact Book}(https://grades.firstdraft.com/launch)[S9ymPy6WCsn18gLbByVbZQ7k]{vfdtzJb5bLYqYwuqgeRKpc5d}(0)[Contact Book]
+
+Once forked, set up a codespace.
 
 The starting point is a blank Rails app; there's nothing else in it to begin with.
 
