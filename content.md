@@ -323,13 +323,14 @@ Now let's see how we can get our Rails app talking to Postgres, so that we can u
 
 All Rails apps come out-of-the-box with a file called `config/database.yml`. `.yml` is the extension for a markup language called "Yet Another Markup Language". It's supposed to be easy to type, sort of like Markdown; but highly structured, sort of like JSON. `.yml` files are often used for configuration and settings.
 
-Among other things, `config/database.yml` is how we tell Rails which database we want it to connect to. Currently, on Line 25, the database is set to:
+Among other things, `config/database.yml` is how we tell Rails which database we want it to connect to. Currently, on Line 26, the database URL is set to:
 
-```yml{5:(8-66)}
+```yml{6:(8-66)}
 # ...
 
 development:
   <<: *default
+  database: <%= Rails.application.class.module_parent_name.underscore %>_development
   url: <%= ENV.fetch("DATABASE_URL").gsub("?", "_development?") %>
 
 # ...
@@ -346,13 +347,14 @@ This is the standard format for any internal or external Postgres database that 
 
 Let's ask Rails to connect to the database that we created instead of the default one provided in the `DATABASE_URL` environment variable.
 
-Edit Line 25 of `config/database.yml` to be:
+Edit Line 26 of `config/database.yml` to be:
 
-```yml{5:(8-65)}
+```yml{6:(8-65)}
 # ...
 
 development:
   <<: *default
+  database: <%= Rails.application.class.module_parent_name.underscore %>_development
   url: postgres://student:postgres@localhost:5432/my_contact_book
 
 # ...
@@ -693,7 +695,7 @@ CREATE TABLE contacts (
 );
 ```
 
-Then, we configured our Rails application to use this database by editing Line 25 of `config/database.yml` to:
+Then, we configured our Rails application to use this database by editing Line 26 of `config/database.yml` to:
 
 ```yml
   url: postgres://student:postgres@localhost:5432/my_contact_book
