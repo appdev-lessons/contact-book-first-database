@@ -68,7 +68,7 @@ In particular, we're going to use a very powerful and popular open-source databa
   - Yes!
 - The apps we build are essentially a way for users to interact with a database.
   - Yes!
-{: .choose_all #databases_and_sql title="Databases and SQL" points="3" answer="[1,3,4]" }
+{: .choose_all #databases_and_sql title="Databases and SQL" points="1" answer="[1,3,4]" }
 
 ## Working directly with Postgres
 
@@ -110,12 +110,12 @@ postgres=# \list
 ```
 
 <div class="alert alert-danger">
-**IMPORTANT NOTE:** Sometimes the output of a command-line command is longer than the terminal window can accommodate at once. In that case, you will see a `:▮` at the bottom of the terminal, which means it's waiting for you to scroll through the rest of the output.
 
-You can scroll through one line at a time with <kbd>return</kbd> or one page at a time with <kbd>space</kbd>. Once you reach the end of the output, you will see `(END)`.
+Sometimes the output of a command-line command is longer than the terminal window can accommodate at once. In that case, you will see a `:▮` at the bottom of the terminal, which means it's waiting for you to scroll through the rest of the output.
 
-**Then, press <kbd>Q</kbd> to return to whatever prompt you were at before, so that you can issue more commands.**
-{: .fs-5 }
+**Press <kbd>Q</kbd> at any point to leave that output behind and get back to your prompt, so that you can issue more commands.** You don't have to read to the bottom first.
+
+If you do want to see the rest, scroll one line at a time with <kbd>return</kbd> or one page at a time with <kbd>space</kbd>; when you reach the end you'll see `(END)`, and <kbd>Q</kbd> gets you out from there too.
 </div>
 
 We can see that there are already a few databases that exist in the codespace. We'll talk about what these are later.
@@ -256,7 +256,7 @@ my_contact_book=# SELECT first_name, last_name FROM contacts;
 
 But usually we'll `SELECT * FROM <table name>` to get all of the columns.
 
-Okay, let's finally add a record to our table! We'll use the `INSERT` command for that. Try running the following SQL; it's pretty cumbersome, so it's okay to copy-paste it:
+Okay, let's finally add a record to our table! We'll use the `INSERT` command for that. Try running the following SQL:
 
 ```sql
 INSERT INTO contacts (
@@ -285,7 +285,7 @@ INSERT INTO contacts (
 ```
 {: copyable }
 
-If you copy-paste the above into `psql` and then `SELECT * FROM contacts;` again, you should finally see some data in our table:
+Run that, then `SELECT * FROM contacts;` again, and you should finally see some data in our table:
 
 ```
  id | first_name | last_name | date_of_birth | street_address_1  | street_address_2 |     city     | state |    zip     |       phone        |                  notes                  |          created_at
@@ -300,18 +300,18 @@ Notice that values for `id` and `created_at` were automatically assigned. You co
 
 - Select all that are true:
 - A "relation" is a single record from the database.
-  - Not quite, re-read the previous section.
+  - Not quite, that's the other way around. A relation is a _set_ of records; a single record is one row out of a relation.
 - A "relation" is a set of records from the database.
   - Yes!
 - We usually think of a "relation" as a "table" in our database.
   - Yes!
 - Postgres is a language.
-  - Not quite.
+  - Not quite. SQL is the language. Postgres is the database software that reads SQL and does what it says.
 - Postgres is a database that we interact with using the SQL language.
   - Yes!
 - Persistent storage allows us to permanently store database records.
   - Yes!
-{: .choose_all #relations_and_postgres title="Relations and Postgres" points="4" answer="[2,3,5,6]" }
+{: .choose_all #relations_and_postgres title="Relations and Postgres" points="1" answer="[2,3,5,6]" }
 
 ## Interacting with Postgres from within a Rails app
 
@@ -415,7 +415,7 @@ And we can see the table and data that we previously created. **So: we update th
 
 ### The /rails/db GUI
 
-Now that we've connected our database to Rails, we can take advantage of a handy gem: Rails DB. 
+Now that we've connected our database to Rails, we can take advantage of a handy gem: Rails DB.
 
 Rails DB provides a graphical user interface (GUI) to our database, to make it easier for developers to quickly see all the data in the database. The Rails DB GUI is accessible in our app at the URL `/rails/db`.
 
@@ -426,26 +426,26 @@ Rails DB provides a graphical user interface (GUI) to our database, to make it e
 <aside>
 As an alternative to manually navigating to `/rails/db`, you can also click the "Database" link from the "Developer Toolbar" on the right side of the page:
 
-![Dev toolbar gif](/assets/dev-toolbar.gif)
+![The Developer Toolbar opening to show its Database link](assets/dev-toolbar.gif)
 
 You'll see that 🛠️ icon in all of our Rails apps to provide some handy links during development.
 </aside>
 
 You should see a page that looks like this:
 
-![](https://res.cloudinary.com/dmxgp9oq2/image/upload/v1690491792/rails-db-1_s2v9iu.png)
+![The Rails DB dashboard in a browser, with a Tables sidebar listing the contacts table and a panel listing what Rails DB can do](https://res.cloudinary.com/dmxgp9oq2/image/upload/v1690491792/rails-db-1_s2v9iu.png)
 {: .bleed-full }
 
 ---
 
 In the left sidebar, there's a list of all the tables that are currently in the database. Click "contacts" to see the rows that are currently in that table:
 
-![](https://res.cloudinary.com/dmxgp9oq2/image/upload/v1690491846/rails-db-2_uanp7x.png)
+![The Records view of the contacts table in Rails DB, showing a single row for Carol Reynolds and a Total: 1 record badge](https://res.cloudinary.com/dmxgp9oq2/image/upload/v1690491846/rails-db-2_uanp7x.png)
 {: .bleed-full }
 
 If you click the blue "+ ADD" button on the top-right, Rails DB will provide a basic form that you can use to add more rows:
 
-![](https://res.cloudinary.com/dmxgp9oq2/image/upload/v1690491901/rails-db-3_ebviou.png)
+![Rails DB's New record form in a modal, with a text box for each column: first_name, last_name, a date_of_birth date picker, street_address_1, street_address_2, and city](https://res.cloudinary.com/dmxgp9oq2/image/upload/v1690491901/rails-db-3_ebviou.png)
 {: .bleed-full }
 
 Try adding a few rows to the table using this form.
@@ -496,16 +496,16 @@ Notice that we named the class singularly (`Contact`), rather than plurally (`Co
 - The files in the `app/models/` folder allow us to interact with our database relations (a.k.a. "tables").
   - Yes!
 - The `app/models/` folder contains our database software.
-  - Not quite, re-read the previous section.
+  - Not quite. Postgres is the database software, and it runs as a separate program. The `app/models/` folder holds the Ruby classes our app uses to _talk to_ it.
 - Our database table is called `Contacts` and our model class is also `Contacts`.
-  - Not quite, re-read the previous section.
+  - Not quite, on both counts. The table name is lowercase and plural (`contacts`), and the class name is capitalized and singular (`Contact`).
 - Our database table is called `contacts` and our model class is called `Contacts`.
-  - Not quite, re-read the previous section.
+  - Half right! `contacts` is the correct table name, but the class is `Contact`. One instance of the class stands for one row, so the class name is singular.
 - Our database table is called `contacts` and our model class is called `Contact`.
   - Yes!
 - In Ruby, classes _always_ begin with an uppercase letter.
   - Yes!
-{: .choose_all #first_model title="First model" points="3" answer="[1,5,6]" }
+{: .choose_all #first_model title="First model" points="1" answer="[1,5,6]" }
 
 ### rails console
 
@@ -605,7 +605,7 @@ And now it works! We can see from the output that the `.count` method issues som
 
 - We can use `.count` because:
 - We defined it ourselves in the `Contact` class.
-  - Not quite.
+  - Not quite. Open `app/models/contact.rb` and look: the only thing in there is `class Contact < ActiveRecord::Base`. We never wrote a `.count` method.
 - We _inherited_ the method from the `ActiveRecord::Base` class.
   - Yes!
 {: .choose_best #inheritance_2 title="Inheritance, 2" points="1" answer="2" }
@@ -768,7 +768,7 @@ If you examine `x` now:
 
 Observe that the `id` and `created_at` columns have been automatically assigned. The record has been saved to the table! Verify using `Contact.count`, as well as the `/rails/db` GUI:
 
-![](https://res.cloudinary.com/dmxgp9oq2/image/upload/v1690572226/rails-db-4_oxhoru.png)
+![The contacts table in Rails DB now showing two rows, Carol Reynolds with id 1 and Alice Boyer with id 2, and a Total: 2 records badge](https://res.cloudinary.com/dmxgp9oq2/image/upload/v1690572226/rails-db-4_oxhoru.png)
 {: .bleed-full }
 
 We've inserted data into our database using Ruby!
@@ -798,11 +798,11 @@ Let's add another record:
 
 - The `id` column for a new database record...
 - is the _foreign key_, and must be manually assigned by us before we `.save` the record.
-  - Not quite.
+  - Not quite, on both counts. `id` is the _primary_ key, and we never assign it ourselves.
 - is the _primary key_, and must be manually assigned by us before we `.save` the record.
-  - Not quite.
+  - Half right! It is the primary key, but we don't assign it. The database picks the next number for us when we `.save`.
 - is the _foreign key_, and is automatically assigned when we `.save` the record.
-  - Not quite.
+  - Half right! It is assigned automatically, but it's the _primary_ key. A foreign key is a column that points at some _other_ table's primary key.
 - is the _primary key_, and is automatically assigned when we `.save` the record.
   - Yes! And good thing, too. That would be hard to keep track of and assign uniquely for every record.
 {: .choose_best #id_column title="ID column" points="1" answer="4" }
@@ -970,7 +970,7 @@ contact-book main %
 
 we get a whole bunch of "Bob Stokes" in our table:
 
-![](https://res.cloudinary.com/dmxgp9oq2/image/upload/v1690648289/rails-db-6_hodd0e.png)
+![The contacts table in Rails DB below the Carol and Alice rows, where rows 3 through 9 all read Bob Stokes with every other column empty](https://res.cloudinary.com/dmxgp9oq2/image/upload/v1690648289/rails-db-6_hodd0e.png)
 {: .bleed-full }
 
 This is better than having just two or three contacts, but it would be even better if they weren't all duplicates. How can we quickly create a bunch of realistic, varied records?
@@ -1026,7 +1026,7 @@ end
 
 Each time we run our task now (by running `rake sample_contacts` at the terminal), 200 contacts with random names will be added:
 
-![](https://res.cloudinary.com/dmxgp9oq2/image/upload/v1690649276/rails-db-7_ustjom.png)
+![The last page of the contacts table in Rails DB, with a Total: 604 records badge and rows of varied random names like Norman Pouros and Jerrod Ferry, the remaining columns still empty](https://res.cloudinary.com/dmxgp9oq2/image/upload/v1690649276/rails-db-7_ustjom.png)
 {: .bleed-full }
 
 The Faker gem [includes _a lot_ of methods for generating various kinds of values](https://github.com/faker-ruby/faker#generators). Let's flesh out our task by assigning randomized values for all the other columns too, using methods from [the `Faker::Address` class](https://github.com/faker-ruby/faker/blob/main/doc/default/address.md), [the `Faker::Date` class](https://github.com/faker-ruby/faker/blob/main/doc/default/date.md), [the `Faker::PhoneNumber` class](https://github.com/faker-ruby/faker/blob/main/doc/default/phone_number.md), and [the `Faker::Movies::HarryPotter` class](https://github.com/faker-ruby/faker/blob/main/doc/movies/harry_potter.md):
@@ -1069,7 +1069,7 @@ end
 
 Now if we run the task, we get fully fleshed out sample contacts in our table:
 
-![](https://res.cloudinary.com/dmxgp9oq2/image/upload/v1690650217/rails-db-8_bwjnvu.png)
+![The contacts table in Rails DB with a Total: 804 records badge, now with every column filled in: random names, dates of birth, street addresses, and cities](https://res.cloudinary.com/dmxgp9oq2/image/upload/v1690650217/rails-db-8_bwjnvu.png)
 {: .bleed-full }
 
 One last detail: it might be nice to "reset" the table by deleting all of the records before creating new, randomized records. In order to do that, we can use the somewhat dangerous `destroy_all` method:
@@ -1116,7 +1116,7 @@ The `destroy_all` method will delete _all_ of the records from a table, so be ve
 
 If you run the `rake sample_contacts` task now, you should see only 202 records in your table; the earlier ones we created are all gone. Also, notice that the IDs do not get reset; when a record is deleted, its ID number is "retired":
 
-![](https://res.cloudinary.com/dmxgp9oq2/image/upload/v1690651037/rails-db-9_eu28me.png)
+![The contacts table in Rails DB after the reset, where the first row's id is 805 rather than 1, showing that the id numbers of deleted records are not reused](https://res.cloudinary.com/dmxgp9oq2/image/upload/v1690651037/rails-db-9_eu28me.png)
 {: .bleed-full }
 
 Great! Now that we have a bunch of realistic records in our table, we're in good shape to practice searching, counting, sorting, etc.
@@ -1155,7 +1155,7 @@ Notice the class of the return value: `Contact::ActiveRecord_Relation`.
 An ActiveRecord Relation is the class that represents _a set of multiple records_ from the table (hence the name "relation").
 </div>
 
-ActiveRecord Relations are very similar to `Array`s. [Any method that you can call on an `Array`](https://learn.firstdraft.com/lessons/73-ruby-intro-array), you can also call on a Relation; `.at`, `.each`, `.sample`, etc.
+ActiveRecord Relations are very similar to `Array`s. [Any method that you can call on an `Array`](/lessons/73-ruby-intro-array), you can also call on a Relation; `.at`, `.each`, `.sample`, etc.
 
 For example, let's save the relation containing all the records to a variable `x`, and then access the first element in the relation with `x.at(0)`:
 
@@ -1214,9 +1214,9 @@ Since we access the first and last elements of relations very often, there are c
 - An ActiveRecord Relation (_multiple records_) and an instance of the `Contact` class (_one record_).
   - Yes!
 - An ActiveRecord Relation (_one record_) and an instance of the `Contact` class (_many records_).
-  - Not quite, re-read the previous section.
+  - Not quite. The parentheses are swapped: a Relation holds _multiple_ records, and an instance of `Contact` is _one_ record.
 - An instance of the `Contact` class (_multiple records_) and an ActiveRecord Relation (_one record_).
-  - Not quite, re-read the previous section.
+  - Not quite, this has them backwards. `Contact.all` is what returns the Relation, and `.at(0)` is what pulls one record out of it.
 {: .choose_best #records_and_relations title="Records and Relations" points="1" answer="1" }
 
 #### Attribute accessor methods
@@ -1339,9 +1339,7 @@ x.count
 
 #### where always returns a relation, never a single row
 
-<div class="alert alert-info fs-4 fw-bold">
-The return value from `.where` is always a Relation, regardless of how many results there are.
-</div>
+**The return value from `.where` is always a Relation, regardless of how many results there are.**
 
 Whether there are 0, 1, or a million results, `.where` returns them within a Relation. What would you expect if you tried the following?
 
