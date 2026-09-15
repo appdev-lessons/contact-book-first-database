@@ -1,4 +1,4 @@
-# Contact Book: Our very first database
+# Contact Book: Our Very First Database
 
 In this project, we'll interact with a real database for the first time.
 
