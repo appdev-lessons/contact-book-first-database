@@ -33,11 +33,11 @@ Importantly, we'll learn how to do this directly within the database and also _i
 The GitHub repository associated with this lesson is just for you to experiment with a database. There are also quiz questions throughout this lesson. You will need to answer those questions to check your understanding and get a grade.
 </div>
 
-Click this button to gain access to fork the repo:
+Click this button to launch the project:
 
 LTI{Load Contact Book}(https://grades.firstdraft.com/launch)[S9ymPy6WCsn18gLbByVbZQ7k]{vfdtzJb5bLYqYwuqgeRKpc5d}(0)[Contact Book]
 
-Once forked, set up a codespace.
+On the Grades page, click the first link to create your codespace. Your work will be saved to a new private `contact-book` repository in your own GitHub account.
 
 The starting point is a blank Rails app; there's nothing else in it to begin with.
 
