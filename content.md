@@ -30,7 +30,7 @@ Importantly, we'll learn how to do this directly within the database and also _i
 
 <div class="alert alert-info">
 
-The GitHub repository associated with this lesson is just for you to experiment with a database. There are also quiz questions throughout this lesson. You will need to answer those questions to check your understanding and get a grade.
+<i class="fa-solid fa-circle-info"></i> The GitHub repository associated with this lesson is just for you to experiment with a database. There are also quiz questions throughout this lesson. You will need to answer those questions to check your understanding and get a grade.
 </div>
 
 Click this button to launch the project:
@@ -73,7 +73,7 @@ In particular, we're going to use a very powerful and popular open-source databa
 ## Working directly with Postgres
 
 <div class="alert alert-info">
-Don't worry about memorizing any of the raw Postgres and SQL commands that you'll see in this section. I just want you to have a sense of how the underlying database works before we graduate to using a wonderful Ruby gem called ActiveRecord that makes it all much easier.
+<i class="fa-solid fa-circle-info"></i> Don't worry about memorizing any of the raw Postgres and SQL commands that you'll see in this section. I just want you to have a sense of how the underlying database works before we graduate to using a wonderful Ruby gem called ActiveRecord that makes it all much easier.
 </div>
 
 First, you have to install the database that you want to use on your computer. Postgres is already installed on our Codespace, so we're set.
@@ -109,9 +109,9 @@ postgres=# \list
 (5 rows)
 ```
 
-<div class="alert alert-danger">
+<div class="alert alert-warning">
 
-Sometimes the output of a command-line command is longer than the terminal window can accommodate at once. In that case, you will see a `:▮` at the bottom of the terminal, which means it's waiting for you to scroll through the rest of the output.
+<i class="fa-solid fa-triangle-exclamation"></i> Sometimes the output of a command-line command is longer than the terminal window can accommodate at once. In that case, you will see a `:▮` at the bottom of the terminal, which means it's waiting for you to scroll through the rest of the output.
 
 **Press <kbd>Q</kbd> at any point to leave that output behind and get back to your prompt, so that you can issue more commands.** You don't have to read to the bottom first.
 
@@ -176,8 +176,8 @@ Did not find any relations.
 
 "Relation" is the formal, computer science-y term for what we've been calling a "table" — a set of records (formally known as "tuples"). The concept of a "relation" is where the name "relational database" comes from. The name does _not_ come from the concept of one-to-many and many-to-many associations between records, confusingly also known as "relationships".
 
-<div class="alert alert-danger">
-We're going to be seeing the term "relation" a lot moving forward — look out for it and get into the habit of thinking **"a 'relation' is 'a _set_ of _multiple records_'"**.
+<div class="alert alert-info">
+<i class="fa-solid fa-circle-info"></i> We're going to be seeing the term "relation" a lot moving forward — look out for it and get into the habit of thinking **"a 'relation' is 'a _set_ of _multiple records_'"**.
 </div>
 
 It makes sense that our brand new database doesn't contain any relations yet. Let's create a table called "contacts" by issuing some SQL at the `my_contact_book=# ` prompt:
@@ -471,8 +471,8 @@ For each table that we want to interact with, we will create a Ruby class to act
 
 Usually, we name the Ruby class in way that matches the table name, to make it easier to know which class represents which table. In this case, let's create a class called `Contact` to deal with the `contacts` table for us.
 
-<div class="alert alert-danger">
-At this point, you should stop copy-pasting and instead start typing out the examples again. We very much want to build muscle memory around using ActiveRecord.
+<div class="alert alert-info">
+<i class="fa-solid fa-circle-info"></i> At this point, you should stop copy-pasting and instead start typing out the examples again. We very much want to build muscle memory around using ActiveRecord.
 </div>
 
 Create a new file called `contact.rb` in the `app/models/` folder in your codespace, and fill it in with the following:
@@ -658,9 +658,7 @@ This is an example of Rails' philosophy of "convention over configuration". If y
 
 <div class="alert alert-info">
 
-**Checkpoint:**
-
-So far I've been doing a lot of explaining, and we've been doing a lot of experimenting in `psql` and `rails console`; but we've actually written very little code. Functionally, here's what we've done so far:
+<i class="fa-solid fa-circle-info"></i> So far I've been doing a lot of explaining, and we've been doing a lot of experimenting in `psql` and `rails console`; but we've actually written very little code. Functionally, here's what we've done so far:
 
 First, I launched `psql` from a bash prompt.
 
@@ -1152,7 +1150,7 @@ We can retrieve all of the records in the table with the `.all` method:
 Notice the class of the return value: `Contact::ActiveRecord_Relation`.
 
 <div class="alert alert-info">
-An ActiveRecord Relation is the class that represents _a set of multiple records_ from the table (hence the name "relation").
+<i class="fa-solid fa-circle-info"></i> An ActiveRecord Relation is the class that represents _a set of multiple records_ from the table (hence the name "relation").
 </div>
 
 ActiveRecord Relations are very similar to `Array`s. [Any method that you can call on an `Array`](/lessons/73-ruby-intro-array), you can also call on a Relation; `.at`, `.each`, `.sample`, etc.
@@ -1184,7 +1182,7 @@ For example, let's save the relation containing all the records to a variable `x
 (Your sample contacts will be different than mine, since we generated them with Faker.)
 
 <div class="alert alert-info">
-Each element within the relation is an instance of the `Contact` class that represents one record.
+<i class="fa-solid fa-circle-info"></i> Each element within the relation is an instance of the `Contact` class that represents one record.
 </div>
 
 Let's look at the last element with `x.at(-1)`:
@@ -1349,7 +1347,7 @@ x.first_name
 ```
 
 <div class="alert alert-info">
-The above code will only return something if a record with the `id` of 2 _exists in your database_. If you get an error, you could run:
+<i class="fa-solid fa-circle-info"></i> The above code will only return something if a record with the `id` of 2 _exists in your database_. If you get an error, you could run:
 
 ```ruby
 Contact.all.last
@@ -1420,11 +1418,12 @@ Contact.where({ :last_name => "Mouse" }).where.not({ :first_name => "Mickey" })
 
 You tack `where.not` on to a collection and it accepts all the same arguments as `.where`, but the result set is all of the records in the original collection _except_ the ones that match the criteria.
 
-<div class="alert alert-info">
-
 #### `.where` is everything
 
-**Everything from looking up a movie's director to putting together a feed in a social network ultimately boils down to `.where`s and `.each`s.** I can't emphasize the importance of `.where` enough. Ask lots of questions.
+<div class="alert alert-info">
+
+
+<i class="fa-solid fa-circle-info"></i> **Everything from looking up a movie's director to putting together a feed in a social network ultimately boils down to `.where`s and `.each`s.** I can't emphasize the importance of `.where` enough. Ask lots of questions.
 </div>
 
 ## UPDATE
