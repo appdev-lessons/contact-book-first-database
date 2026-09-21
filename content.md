@@ -433,19 +433,19 @@ You'll see that 🛠️ icon in all of our Rails apps to provide some handy link
 
 You should see a page that looks like this:
 
-![The Rails DB dashboard in a browser, with a Tables sidebar listing the contacts table and a panel listing what Rails DB can do](https://res.cloudinary.com/dmxgp9oq2/image/upload/v1690491792/rails-db-1_s2v9iu.png)
+![The Rails DB dashboard in a browser, with a Tables sidebar listing the contacts table and a panel listing what Rails DB can do](assets/rails-db-1.png)
 {: .bleed-full }
 
 ---
 
 In the left sidebar, there's a list of all the tables that are currently in the database. Click "contacts" to see the rows that are currently in that table:
 
-![The Records view of the contacts table in Rails DB, showing a single row for Carol Reynolds and a Total: 1 record badge](https://res.cloudinary.com/dmxgp9oq2/image/upload/v1690491846/rails-db-2_uanp7x.png)
+![The Records view of the contacts table in Rails DB, showing a single row for Carol Reynolds and a Total: 1 record badge](assets/rails-db-2.png)
 {: .bleed-full }
 
 If you click the blue "+ ADD" button on the top-right, Rails DB will provide a basic form that you can use to add more rows:
 
-![Rails DB's New record form in a modal, with a text box for each column: first_name, last_name, a date_of_birth date picker, street_address_1, street_address_2, and city](https://res.cloudinary.com/dmxgp9oq2/image/upload/v1690491901/rails-db-3_ebviou.png)
+![Rails DB's New record form in a modal, with a text box for each column: first_name, last_name, a date_of_birth date picker, street_address_1, street_address_2, and city](assets/rails-db-3.png)
 {: .bleed-full }
 
 Try adding a few rows to the table using this form.
@@ -766,7 +766,7 @@ If you examine `x` now:
 
 Observe that the `id` and `created_at` columns have been automatically assigned. The record has been saved to the table! Verify using `Contact.count`, as well as the `/rails/db` GUI:
 
-![The contacts table in Rails DB now showing two rows, Carol Reynolds with id 1 and Alice Boyer with id 2, and a Total: 2 records badge](https://res.cloudinary.com/dmxgp9oq2/image/upload/v1690572226/rails-db-4_oxhoru.png)
+![The contacts table in Rails DB now showing two rows, Carol Reynolds with id 1 and Alice Boyer with id 2, and a Total: 2 records badge](assets/rails-db-4.png)
 {: .bleed-full }
 
 We've inserted data into our database using Ruby!
@@ -968,7 +968,7 @@ contact-book main %
 
 we get a whole bunch of "Bob Stokes" in our table:
 
-![The contacts table in Rails DB below the Carol and Alice rows, where rows 3 through 9 all read Bob Stokes with every other column empty](https://res.cloudinary.com/dmxgp9oq2/image/upload/v1690648289/rails-db-6_hodd0e.png)
+![The contacts table in Rails DB below the Carol and Alice rows, where rows 3 through 9 all read Bob Stokes with every other column empty](assets/rails-db-6.png)
 {: .bleed-full }
 
 This is better than having just two or three contacts, but it would be even better if they weren't all duplicates. How can we quickly create a bunch of realistic, varied records?
@@ -1024,7 +1024,7 @@ end
 
 Each time we run our task now (by running `rake sample_contacts` at the terminal), 200 contacts with random names will be added:
 
-![The last page of the contacts table in Rails DB, with a Total: 604 records badge and rows of varied random names like Norman Pouros and Jerrod Ferry, the remaining columns still empty](https://res.cloudinary.com/dmxgp9oq2/image/upload/v1690649276/rails-db-7_ustjom.png)
+![The last page of the contacts table in Rails DB, with a Total: 604 records badge and rows of varied random names like Norman Pouros and Jerrod Ferry, the remaining columns still empty](assets/rails-db-7.png)
 {: .bleed-full }
 
 The Faker gem [includes _a lot_ of methods for generating various kinds of values](https://github.com/faker-ruby/faker#generators). Let's flesh out our task by assigning randomized values for all the other columns too, using methods from [the `Faker::Address` class](https://github.com/faker-ruby/faker/blob/main/doc/default/address.md), [the `Faker::Date` class](https://github.com/faker-ruby/faker/blob/main/doc/default/date.md), [the `Faker::PhoneNumber` class](https://github.com/faker-ruby/faker/blob/main/doc/default/phone_number.md), and [the `Faker::Movies::HarryPotter` class](https://github.com/faker-ruby/faker/blob/main/doc/movies/harry_potter.md):
@@ -1067,7 +1067,7 @@ end
 
 Now if we run the task, we get fully fleshed out sample contacts in our table:
 
-![The contacts table in Rails DB with a Total: 804 records badge, now with every column filled in: random names, dates of birth, street addresses, and cities](https://res.cloudinary.com/dmxgp9oq2/image/upload/v1690650217/rails-db-8_bwjnvu.png)
+![The contacts table in Rails DB with a Total: 804 records badge, now with every column filled in: random names, dates of birth, street addresses, and cities](assets/rails-db-8.png)
 {: .bleed-full }
 
 One last detail: it might be nice to "reset" the table by deleting all of the records before creating new, randomized records. In order to do that, we can use the somewhat dangerous `destroy_all` method:
@@ -1114,7 +1114,7 @@ The `destroy_all` method will delete _all_ of the records from a table, so be ve
 
 If you run the `rake sample_contacts` task now, you should see only 202 records in your table; the earlier ones we created are all gone. Also, notice that the IDs do not get reset; when a record is deleted, its ID number is "retired":
 
-![The contacts table in Rails DB after the reset, where the first row's id is 805 rather than 1, showing that the id numbers of deleted records are not reused](https://res.cloudinary.com/dmxgp9oq2/image/upload/v1690651037/rails-db-9_eu28me.png)
+![The contacts table in Rails DB after the reset, where the first row's id is 805 rather than 1, showing that the id numbers of deleted records are not reused](assets/rails-db-9.png)
 {: .bleed-full }
 
 Great! Now that we have a bunch of realistic records in our table, we're in good shape to practice searching, counting, sorting, etc.
