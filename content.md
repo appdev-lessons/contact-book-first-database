@@ -57,7 +57,7 @@ Some databases come with barebones GUIs, but those GUIs are not intended for end
 
 Relational databases, the kind of database that powers most apps, use a special language called Structured Query Language (SQL). Any app (whether Ruby, Python, Java, etc) that wants to store data in and retrieve data from a relational database must ultimately output instructions written in SQL (called "queries") and send them to the database for processing.
 
-In particular, we're going to use a very powerful and popular open-source database known as PostgreSQL (or "Postgres", for short). We're first going to see how to work with Postgres directly, but we'll soon move on to working with Postgres through Ruby. That will enable us to integrate permanent storage into our Rails apps – finally!
+In particular, we're going to use a very powerful and popular open-source database known as PostgreSQL (or "Postgres," for short). We're first going to see how to work with Postgres directly, but we'll soon move on to working with Postgres through Ruby. That will enable us to integrate permanent storage into our Rails apps – finally!
 
 - Select all that are true:
 - Structured Query Language (SQL) is the language used to interact with relational databases.
@@ -174,7 +174,7 @@ my_contact_book=# \dt
 Did not find any relations.
 ```
 
-"Relation" is the formal, computer science-y term for what we've been calling a "table" — a set of records (formally known as "tuples"). The concept of a "relation" is where the name "relational database" comes from. The name does _not_ come from the concept of one-to-many and many-to-many associations between records, confusingly also known as "relationships".
+"Relation" is the formal, computer science-y term for what we've been calling a "table" — a set of records (formally known as "tuples"). The concept of a "relation" is where the name "relational database" comes from. The name does _not_ come from the concept of one-to-many and many-to-many associations between records, confusingly also known as "relationships."
 
 <div class="alert alert-info">
 <i class="fa-solid fa-circle-info"></i> We're going to be seeing the term "relation" a lot moving forward — look out for it and get into the habit of thinking **"a 'relation' is 'a _set_ of _multiple records_'"**.
@@ -321,7 +321,7 @@ Now let's see how we can get our Rails app talking to Postgres, so that we can u
 
 ### config/database.yml
 
-All Rails apps come out-of-the-box with a file called `config/database.yml`. `.yml` is the extension for a markup language called "Yet Another Markup Language". It's supposed to be easy to type, sort of like Markdown; but highly structured, sort of like JSON. `.yml` files are often used for configuration and settings.
+All Rails apps come out-of-the-box with a file called `config/database.yml`. `.yml` is the extension for a markup language called "Yet Another Markup Language." It's supposed to be easy to type, sort of like Markdown; but highly structured, sort of like JSON. `.yml` files are often used for configuration and settings.
 
 Among other things, `config/database.yml` is how we tell Rails which database we want it to connect to. Currently, on Line 26, the database URL is set to:
 
@@ -467,7 +467,7 @@ Fortunately for us, there's a wonderful Ruby gem called ActiveRecord (written by
 
 ### Models
 
-For each table that we want to interact with, we will create a Ruby class to act as a translator to that table. This Ruby class will generate SQL, send it to the database, and transform the data sent back into Ruby objects that are easy for us to work with. We refer to these classes  as "models", and we place them in the `app/models` folder.
+For each table that we want to interact with, we will create a Ruby class to act as a translator to that table. This Ruby class will generate SQL, send it to the database, and transform the data sent back into Ruby objects that are easy for us to work with. We refer to these classes  as "models," and we place them in the `app/models` folder.
 
 Usually, we name the Ruby class in way that matches the table name, to make it easier to know which class represents which table. In this case, let's create a class called `Contact` to deal with the `contacts` table for us.
 
@@ -542,7 +542,7 @@ Loading development environment (Rails 8.0.2)
 [1] pry(main)>
 ```
 
-Notice the new prompt: `[1] pry(main)> `, and also notice that it said "Loading development environment (Rails 8.0.2)".
+Notice the new prompt: `[1] pry(main)> `, and also notice that it said "Loading development environment (Rails 8.0.2)."
 
 The Rails Console is very similar to IRB, but _it automatically `require`s all of the files and gems in the Rails app_. This includes gems like `activesupport`, `json`, etc, in addition to all of our own classes from the `app/models/` folder. This is a huge time saver when we're experimenting!
 
@@ -654,7 +654,7 @@ Now if you `exit`, `rails c`, and try again, it should work:
 
 We now have two models, `Contact` and `Zebra`, which both interact with the same underlying table — `contacts`. In a real app we would never do that, but I'm just proving a point! From now on, we'll always name our model after the table we want it to represent so that we can skip the `self.table_name` step.
 
-This is an example of Rails' philosophy of "convention over configuration". If you follow conventional patterns (like naming your model the same thing as your table), then Rails will by default _just work_ without us having to specify every little thing. But if you want to break from convention, Rails always gives you a way to do that too.
+This is an example of Rails' philosophy of "convention over configuration." If you follow conventional patterns (like naming your model the same thing as your table), then Rails will by default _just work_ without us having to specify every little thing. But if you want to break from convention, Rails always gives you a way to do that too.
 
 <div class="alert alert-info">
 
@@ -811,11 +811,11 @@ Over the next few sections, we're going to learn how to find and retrieve record
 
 It would be very tedious to create hundreds of records by typing them one by one into `rails console` like we've been doing. I'm way too lazy for that! But now that we know how to insert records using Ruby, we can automate the process by writing a program.
 
-Let's write a Ruby script that will create a few hundred rows in the contacts table and populate them with random data. We call data like this "sample data", and it's extremely helpful to have while developing an app.
+Let's write a Ruby script that will create a few hundred rows in the contacts table and populate them with random data. We call data like this "sample data," and it's extremely helpful to have while developing an app.
 
 #### Custom rake tasks
 
-Rails provides a place to put Ruby scripts: the `lib/tasks` folders. Let's create a file in that folder called `i_am_lazy.rake`. Notice that the file extension is `.rake` rather than `.rb`. The contents of the file will still be a Ruby program, but these special scripts are known as "rake tasks".
+Rails provides a place to put Ruby scripts: the `lib/tasks` folders. Let's create a file in that folder called `i_am_lazy.rake`. Notice that the file extension is `.rake` rather than `.rb`. The contents of the file will still be a Ruby program, but these special scripts are known as "rake tasks."
 
 Within the file, type the following code:
 
