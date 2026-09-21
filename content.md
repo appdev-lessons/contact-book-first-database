@@ -425,19 +425,19 @@ RAILS_DB_PASSWORD="SuperSecretPasswordThatGivesTotalAccessToYourDatabaseDontUseT
 
 Did you <kbd>Ctrl</kbd> + <kbd>C</kbd> kill your server, add a `.env` file with the `RAILS_DB_USERNAME` and `RAILS_DB_PASSWORD`, then restart your server? Good! Now when you visit `/rails/db` in your live app preview, you should see a page that looks like this:
 
-![](https://res.cloudinary.com/dmxgp9oq2/image/upload/v1690491792/rails-db-1_s2v9iu.png)
+![](assets/rails-db-1.png)
 {: .bleed-full }
 
 ---
 
 In the left sidebar, there's a list of all the tables that are currently in the database. Click "contacts" to see the rows that are currently in that table:
 
-![](https://res.cloudinary.com/dmxgp9oq2/image/upload/v1690491846/rails-db-2_uanp7x.png)
+![](assets/rails-db-2.png)
 {: .bleed-full }
 
 If you click the blue "+ ADD" button on the top-right, Rails DB will provide a basic form that you can use to add more rows:
 
-![](https://res.cloudinary.com/dmxgp9oq2/image/upload/v1690491901/rails-db-3_ebviou.png)
+![](assets/rails-db-3.png)
 {: .bleed-full }
 
 Try adding a few rows to the table using this form.
@@ -767,7 +767,7 @@ If you examine `x` now:
 
 Observe that the `id` and `created_at` columns have been automatically assigned. The record has been saved to the table! Verify using `Contact.count`, as well as the `/rails/db` GUI:
 
-![](https://res.cloudinary.com/dmxgp9oq2/image/upload/v1690572226/rails-db-4_oxhoru.png)
+![](assets/rails-db-4.png)
 {: .bleed-full }
 
 We've inserted data into our database using Ruby!
@@ -968,7 +968,7 @@ end
 
 Now if we run the task, we get a whole bunch of "Bob Stokes" in our table:
 
-![](https://res.cloudinary.com/dmxgp9oq2/image/upload/v1690648289/rails-db-6_hodd0e.png)
+![](assets/rails-db-6.png)
 {: .bleed-full }
 
 This is better than having just two or three contacts, but it would be even better if they weren't all duplicates. How can we quickly create a bunch of realistic, varied records?
@@ -1025,7 +1025,7 @@ end
 
 Each time we run our task now, 200 contacts with random names will be added:
 
-![](https://res.cloudinary.com/dmxgp9oq2/image/upload/v1690649276/rails-db-7_ustjom.png)
+![](assets/rails-db-7.png)
 {: .bleed-full }
 
 The Faker gem [includes _a lot_ of methods for generating various kinds of values](https://github.com/faker-ruby/faker#generators). Let's flesh out our task by assigning randomized values for all the other columns too, using methods from [the `Faker::Address` class](https://github.com/faker-ruby/faker/blob/main/doc/default/address.md), [the `Faker::Date` class](https://github.com/faker-ruby/faker/blob/main/doc/default/date.md), [the `Faker::PhoneNumber` class](https://github.com/faker-ruby/faker/blob/main/doc/default/phone_number.md), and [the `Faker::Movies::HarryPotter` class](https://github.com/faker-ruby/faker/blob/main/doc/movies/harry_potter.md):
@@ -1069,7 +1069,7 @@ end
 
 Now if we run the task, we get fully fleshed out sample contacts in our table:
 
-![](https://res.cloudinary.com/dmxgp9oq2/image/upload/v1690650217/rails-db-8_bwjnvu.png)
+![](assets/rails-db-8.png)
 {: .bleed-full }
 
 One last detail: it might be nice to "reset" the table by deleting all of the records before creating new, randomized records. In order to do that, we can use the somewhat dangerous `destroy_all` method:
@@ -1117,7 +1117,7 @@ The `destroy_all` method will delete _all_ of the records from a table, so be ve
 
 If you run the task now, you should see only 202 records in your table; the earlier ones we created are all gone. Also, notice that the IDs do not get reset; when a record is deleted, its ID number is "retired":
 
-![](https://res.cloudinary.com/dmxgp9oq2/image/upload/v1690651037/rails-db-9_eu28me.png)
+![](assets/rails-db-9.png)
 {: .bleed-full }
 
 Great! Now that we have a bunch of realistic records in our table, we're in good shape to practice searching, counting, sorting, etc.
